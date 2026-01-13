@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "TechSoul Grocery",
-  description: "TechSoul Grocery is an e-commerce app for grocery shopping.",
+  title: "Aamar Dokan",
+  description: "aamardokan Grocery is an e-commerce app for grocery shopping.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextTopLoader 
-          color="#10b981" // emerald-600 to match your theme
+          color="#10b981"
           showSpinner={false}
           shadow="0 0 10px #10b981,0 0 5px #10b981"
         />

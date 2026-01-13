@@ -18,7 +18,7 @@ export default function ClientLayout({ children }: Props) {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  // 🔥 Automatically close sidebar on /dashboard
+  
   useEffect(() => {
     if (pathname?.startsWith("/dashboard")) {
       setIsSidebarOpen(false);

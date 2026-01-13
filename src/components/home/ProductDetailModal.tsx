@@ -1,10 +1,11 @@
 "use client";
 
-import { X, ShoppingCart } from "lucide-react";
+import { X, ShoppingCart, ShieldCheck, Truck, RefreshCw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Product } from "@/lib/products";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/store/features/cartSlice";
+import { toast } from "sonner";
 
 export default function ProductDetailModal({
   product,
@@ -16,100 +17,123 @@ export default function ProductDetailModal({
   onClose: () => void;
 }) {
   const dispatch = useDispatch();
-  const overlayRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState(false);
-  const [origin, setOrigin] = useState<{ x: number; y: number }>({ x: 50, y: 50 });
+  const [origin, setOrigin] = useState({ x: 50, y: 50 });
 
+  // Handle Escape Key to close
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
+    const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    if (open) document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-
-  const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-      })
-    );
-  };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
 
   if (!open) return null;
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setOrigin({ x, y });
+  };
+
   return (
-    <div
-      ref={overlayRef}
-      onClick={(e) => {
-        if (e.target === overlayRef.current) onClose();
-      }}
-      className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
-    >
-      <div className="absolute inset-0 flex items-center justify-center p-4">
-        <div className="relative w-full max-w-5xl rounded-xl bg-white shadow-2xl">
-          <button
-            aria-label="Close"
-            onClick={onClose}
-            className="absolute right-3 top-3 z-10 rounded-full bg-white/90 p-2 text-zinc-700 shadow hover:bg-white"
-          >
-            <X size={18} />
-          </button>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+      
+      {/* 1. BACKDROP (Clicking this closes the modal) */}
+      <div 
+        className="fixed inset-0 bg-zinc-900/80 backdrop-blur-md animate-in fade-in duration-300" 
+        onClick={onClose} 
+      />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-            {/* Image with zoom */}
-            <div
-              className="relative overflow-hidden bg-zinc-50 md:rounded-l-xl"
-              onMouseMove={(e) => {
-                const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                setOrigin({ x, y });
+      {/* 2. CLOSE BUTTON (Positioned outside the white box) */}
+      <button
+        onClick={onClose}
+        className="absolute right-4 top-4 z-[110] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 hover:rotate-90 md:right-10 md:top-10"
+        aria-label="Close modal"
+      >
+        <X size={32} strokeWidth={1.5} />
+      </button>
+
+      {/* 3. MODAL CONTENT */}
+      <div className="relative z-[105] w-full max-w-5xl overflow-hidden rounded-[2.5rem] bg-white shadow-2xl animate-in zoom-in-95 duration-300">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          
+          {/* LEFT SIDE: Info */}
+          <div className="order-2 flex flex-col p-8 md:order-1 lg:p-14">
+            <div className="flex-1">
+              <span className="inline-block rounded-full bg-emerald-50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-emerald-600">
+                Fresh Stock
+              </span>
+              <h2 className="mt-6 text-3xl font-black text-zinc-900 lg:text-5xl">
+                {product.name}
+              </h2>
+              
+              <div className="mt-6 flex items-center gap-4">
+                <span className="text-4xl font-black text-emerald-600">${product.price.toFixed(2)}</span>
+                <div className="flex flex-col">
+                    <span className="text-sm text-zinc-400 line-through">${(product.price * 1.3).toFixed(2)}</span>
+                    <span className="text-xs font-bold text-rose-500 text-nowrap">Save 30% Today</span>
+                </div>
+              </div>
+
+              <p className="mt-8 text-base leading-relaxed text-zinc-500">
+                {product?.description || "Indulge in the finest selection of hand-picked items. Guaranteed freshness from farm to your table."}
+              </p>
+
+              <div className="mt-10 grid grid-cols-3 gap-6 border-t border-zinc-100 pt-10">
+                <div className="text-center">
+                   <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-50 text-emerald-600">
+                      <Truck size={20} />
+                   </div>
+                   <p className="mt-2 text-[10px] font-bold uppercase text-zinc-400">Instant Delivery</p>
+                </div>
+                <div className="text-center">
+                   <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-50 text-emerald-600">
+                      <ShieldCheck size={20} />
+                   </div>
+                   <p className="mt-2 text-[10px] font-bold uppercase text-zinc-400">Quality Assured</p>
+                </div>
+                <div className="text-center">
+                   <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-50 text-emerald-600">
+                      <RefreshCw size={20} />
+                   </div>
+                   <p className="mt-2 text-[10px] font-bold uppercase text-zinc-400">Free Returns</p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                dispatch(addToCart(product));
+                toast.success("Added to cart!");
               }}
-              onMouseLeave={() => setZoom(false)}
-              onClick={() => setZoom((z) => !z)}
+              className="mt-10 flex h-16 w-full items-center justify-center gap-3 rounded-2xl bg-zinc-900 text-lg font-bold text-white transition-all hover:bg-emerald-600 active:scale-95 shadow-xl"
             >
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{ transformOrigin: `${origin.x}% ${origin.y}%` }}
-                className={`h-full w-full object-cover transition-transform duration-300 ${zoom ? "scale-125 cursor-zoom-out" : "scale-100 cursor-zoom-in"}`}
-              />
-            </div>
+              <ShoppingCart size={22} />
+              Add to Cart — ${product.price.toFixed(2)}
+            </button>
+          </div>
 
-            {/* Info */}
-            <div className="p-6 md:rounded-r-xl">
-              <p className="text-[11px] uppercase tracking-widest text-zinc-400 font-bold">Product</p>
-              <h2 className="mt-1 text-xl font-bold text-zinc-900">{product.name}</h2>
-              <div className="mt-3 text-2xl font-black text-emerald-700">${product.price.toFixed(2)}</div>
-
-              <div className="mt-4 space-y-2 text-sm text-zinc-700">
-                <p>ID: {product.id}</p>
-                <p>Category: {product.category}</p>
-                <p className="text-zinc-600">
-                  High-quality item selected for freshness and taste. Zoom the image to inspect details.
-                </p>
-              </div>
-
-              <div className="mt-6 flex gap-3">
-                <button
-                  onClick={handleAddToCart}
-                  className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
-                >
-                  <ShoppingCart size={18} />
-                  Add to Cart
-                </button>
-                <button
-                  onClick={onClose}
-                  className="rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
+          {/* RIGHT SIDE: Image Zoom */}
+          <div 
+            className="group relative order-1 h-[350px] overflow-hidden bg-zinc-100 md:order-2 md:h-auto"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setZoom(true)}
+            onMouseLeave={() => setZoom(false)}
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              style={{
+                transformOrigin: `${origin.x}% ${origin.y}%`,
+                transform: zoom ? "scale(2)" : "scale(1)"
+              }}
+              className="h-full w-full object-cover transition-transform duration-500 ease-out cursor-crosshair"
+            />
+            {/* Glossy Overlay */}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 to-transparent opacity-50" />
           </div>
         </div>
       </div>

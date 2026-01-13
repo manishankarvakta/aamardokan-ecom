@@ -38,14 +38,14 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
           className="text-gray-700 focus:outline-none cursor-pointer"
         >
           {isSidebarOpen ? (
-            <span className="text-2xl">☰</span> // Close icon
+            <span className="text-2xl">☰</span>
           ) : (
-            <span className="text-1xl">✖️</span> // Hamburger icon
+            <span className="text-1xl">✖️</span>
           )}
         </button>
         <Link href="/" className="flex items-center gap-2 font-semibold text-zinc-900">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded bg-emerald-600 text-white">G</span>
-          <span>TechSoul Grocery</span>
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded bg-emerald-600 text-white">A</span>
+          <span>Ammar Dokan</span>
         </Link>
 
         <form onSubmit={onSearch} className="flex-1 max-w-xl mx-auto">
