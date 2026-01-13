@@ -6,6 +6,7 @@ import type { Product } from "@/lib/products";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/store/features/cartSlice";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function ProductDetailModal({
   product,
@@ -39,50 +40,50 @@ export default function ProductDetailModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       
       {/* 1. BACKDROP (Clicking this closes the modal) */}
       <div 
-        className="fixed inset-0 bg-zinc-900/80 backdrop-blur-md animate-in fade-in duration-300" 
+        className="fixed inset-0 z-50 bg-zinc-900/70 backdrop-blur-sm animate-in fade-in duration-200" 
         onClick={onClose} 
       />
 
       {/* 2. CLOSE BUTTON (Positioned outside the white box) */}
       <button
         onClick={onClose}
-        className="absolute right-4 top-4 z-[110] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 hover:rotate-90 md:right-10 md:top-10"
+        className="absolute cursor-pointer right-4 top-4 z-70 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 hover:rotate-90 md:right-10 md:top-10"
         aria-label="Close modal"
       >
         <X size={32} strokeWidth={1.5} />
       </button>
 
       {/* 3. MODAL CONTENT */}
-      <div className="relative z-[105] w-full max-w-5xl overflow-hidden rounded-[2.5rem] bg-white shadow-2xl animate-in zoom-in-95 duration-300">
+      <div className="relative z-60 w-full max-w-5xl min-h-[60vh] overflow-hidden rounded-2xl bg-white shadow-2xl animate-in zoom-in-95 duration-200">
         <div className="grid grid-cols-1 md:grid-cols-2">
           
           {/* LEFT SIDE: Info */}
-          <div className="order-2 flex flex-col p-8 md:order-1 lg:p-14">
+          <div className="order-2 flex flex-col p-8 md:order-1  overflow-y-auto">
             <div className="flex-1">
               <span className="inline-block rounded-full bg-emerald-50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-emerald-600">
                 Fresh Stock
               </span>
-              <h2 className="mt-6 text-3xl font-black text-zinc-900 lg:text-5xl">
+              <h2 className="mt-6 text-2xl font-black text-zinc-900 lg:text-3xl">
                 {product.name}
               </h2>
               
               <div className="mt-6 flex items-center gap-4">
-                <span className="text-4xl font-black text-emerald-600">${product.price.toFixed(2)}</span>
+                <span className="text-2xl font-black text-emerald-600">${product.price.toFixed(2)}</span>
                 <div className="flex flex-col">
                     <span className="text-sm text-zinc-400 line-through">${(product.price * 1.3).toFixed(2)}</span>
                     <span className="text-xs font-bold text-rose-500 text-nowrap">Save 30% Today</span>
                 </div>
               </div>
 
-              <p className="mt-8 text-base leading-relaxed text-zinc-500">
+              <p className="mt-8 text-sm leading-relaxed text-zinc-500">
                 {product?.description || "Indulge in the finest selection of hand-picked items. Guaranteed freshness from farm to your table."}
               </p>
 
-              <div className="mt-10 grid grid-cols-3 gap-6 border-t border-zinc-100 pt-10">
+              <div className="mt-10 grid grid-cols-3 gap-6 border-t border-zinc-100 pt-8">
                 <div className="text-center">
                    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-50 text-emerald-600">
                       <Truck size={20} />
@@ -109,23 +110,24 @@ export default function ProductDetailModal({
                 dispatch(addToCart(product));
                 toast.success("Added to cart!");
               }}
-              className="mt-10 flex h-16 w-full items-center justify-center gap-3 rounded-2xl bg-zinc-900 text-lg font-bold text-white transition-all hover:bg-emerald-600 active:scale-95 shadow-xl"
+              className="mt-8 flex h-12 w-1/2 mx-auto bg-emerald-600 items-center justify-center gap-3 rounded-2xl text-lg font-bold text-white transition-all hover:bg-emerald-800 active:scale-95 shadow-xl"
             >
               <ShoppingCart size={22} />
-              Add to Cart — ${product.price.toFixed(2)}
+              Add to Cart
             </button>
           </div>
 
           {/* RIGHT SIDE: Image Zoom */}
           <div 
-            className="group relative order-1 h-[350px] overflow-hidden bg-zinc-100 md:order-2 md:h-auto"
+            className="group relative order-1 h-[380px] md:h-[520px] overflow-hidden bg-zinc-100 md:order-2"
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setZoom(true)}
             onMouseLeave={() => setZoom(false)}
           >
-            <img
+            <Image
               src={product.image}
               alt={product.name}
+              fill
               style={{
                 transformOrigin: `${origin.x}% ${origin.y}%`,
                 transform: zoom ? "scale(2)" : "scale(1)"

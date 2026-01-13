@@ -19,7 +19,7 @@ import {
 const SIDEBAR_LINKS = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "My Profile", href: "/dashboard/profile", icon: User },
-  { name: "My Orders", href: "/dashboard/orders", icon: Package },
+  { name: "My Orders", href: "/dashboard/my-orders", icon: Package },
   { name: "Wishlist", href: "/wishlist", icon: Heart },
   { name: "Coupon", href: "/dashboard/coupons", icon: Ticket },
   { name: "Review", href: "/dashboard/reviews", icon: Star },

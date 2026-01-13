@@ -33,7 +33,7 @@ export default function ProductCard({ product }: { product: Product }) {
     <div onClick={() => setIsOpen(true)} className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 cursor-pointer">
       
       {/* Image Container */}
-      <div className="relative aspect-[4/5] h-40 overflow-hidden bg-zinc-50">
+      <div className="relative aspect-[4/5] h-48 overflow-hidden bg-zinc-50">
         {/* Wishlist Button - Top Right */}
         <button 
           aria-label="Add to wishlist"
@@ -52,7 +52,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Add to Cart - Sliding up from bottom of Image */}
         <div className="absolute inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-300 ease-out group-hover:translate-y-0 bg-gradient-to-t from-black/40 to-transparent">
-          <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }} className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all">
+          <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }} className="flex w-40 mx-auto items-center justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all">
             <ShoppingCart size={18} />
             Add to Cart
           </button>
