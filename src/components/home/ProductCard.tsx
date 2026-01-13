@@ -47,7 +47,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <img
           src={product.image}
           alt={product.name}
-          className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+          className="h-[80%] w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
         />
 
         {/* Add to Cart - Sliding up from bottom of Image */}
