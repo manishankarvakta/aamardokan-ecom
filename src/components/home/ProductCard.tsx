@@ -33,7 +33,7 @@ export default function ProductCard({ product }: { product: Product }) {
     <div onClick={() => setIsOpen(true)} className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 cursor-pointer">
       
       {/* Image Container */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-zinc-50">
+      <div className="relative aspect-[4/5] h-40 overflow-hidden bg-zinc-50">
         {/* Wishlist Button - Top Right */}
         <button 
           aria-label="Add to wishlist"
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <img
           src={product.image}
           alt={product.name}
-          className="h-[80%] w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+          className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
         />
 
         {/* Add to Cart - Sliding up from bottom of Image */}

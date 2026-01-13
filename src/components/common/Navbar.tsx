@@ -32,7 +32,7 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border border-zinc-200 shadow-sm">
-      <div className="container mx-auto px-4 lg:px-8 h-16 flex items-center gap-4">
+      <div className="px-4 h-16 flex items-center gap-4">
         <button
           onClick={toggleSidebar}
           className="text-gray-700 focus:outline-none cursor-pointer"
