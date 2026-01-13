@@ -4,10 +4,13 @@ import type { Product } from "@/lib/products";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/store/features/cartSlice";
+import { useState } from "react";
+import ProductDetailModal from "@/components/home/ProductDetailModal";
 import { toast } from "sonner";
 
 export default function ProductCard({ product }: { product: Product }) {
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
 
   // Logic to send product to Redux Store
   const handleAddToCart = () => {
@@ -27,13 +30,14 @@ export default function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50">
+    <div onClick={() => setIsOpen(true)} className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 cursor-pointer">
       
       {/* Image Container */}
       <div className="relative aspect-[4/5] overflow-hidden bg-zinc-50">
         {/* Wishlist Button - Top Right */}
         <button 
           aria-label="Add to wishlist"
+          onClick={(e) => e.stopPropagation()}
           className="absolute right-3 top-3 z-20 rounded-full bg-white/90 p-2 text-zinc-600 shadow-sm transition-all hover:bg-white hover:text-rose-500 active:scale-90"
         >
           <Heart size={18} />
@@ -48,7 +52,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Add to Cart - Sliding up from bottom of Image */}
         <div className="absolute inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-300 ease-out group-hover:translate-y-0 bg-gradient-to-t from-black/40 to-transparent">
-          <button onClick={handleAddToCart} className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all">
+          <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }} className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all">
             <ShoppingCart size={18} />
             Add to Cart
           </button>
@@ -70,6 +74,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
       </div>
+      <ProductDetailModal product={product} open={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 }

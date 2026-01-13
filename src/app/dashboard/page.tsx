@@ -56,7 +56,7 @@ const Dashboard = () => {
       <div className="grid md:grid-cols-3 gap-6">
         
         {/* My Orders Card */}
-        <Link href="/dashboard/orders" className="group relative overflow-hidden rounded-2xl bg-purple-50 dark:bg-purple-900/20 p-6 border border-purple-100 dark:border-purple-800/50 hover:shadow-md transition-shadow">
+        <Link href="/dashboard/my-orders" className="group relative overflow-hidden rounded-2xl bg-purple-50 dark:bg-purple-900/20 p-6 border border-purple-100 dark:border-purple-800/50 hover:shadow-md transition-shadow">
           <div className="relative z-10 text-center space-y-4">
              <div className="mx-auto h-16 w-16 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-200">
                <Package className="h-8 w-8" />
