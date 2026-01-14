@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { Package, ChevronRight, Clock, CheckCircle2, Truck, Box, CheckCircle, Star } from 'lucide-react';
 
 // Mock Data - In a real app, you'd fetch this from your database/Redux
@@ -67,18 +68,18 @@ const MyOrders = () => {
             { label: "Shipped", icon: Truck, count: 0 },
             { label: "Review", icon: Star, count: 0 },
           ].map((stat) => (
-             <div key={stat.label} className="flex flex-col items-center gap-3 group cursor-pointer">
-               <div className="h-12 w-12 rounded-full  flex items-center justify-center bg-emerald-600 text-white transition-colors">
-                 <stat.icon className="h-6 w-6" />
-               </div>
-               <span className="text-sm font-medium">{stat.label}</span>
-             </div>
+            <div key={stat.label} className="flex flex-col items-center gap-3 group cursor-pointer">
+              <div className="h-12 w-12 rounded-full  flex items-center justify-center bg-emerald-600 text-white transition-colors">
+                <stat.icon className="h-6 w-6" />
+              </div>
+              <span className="text-sm font-medium">{stat.label}</span>
+            </div>
           ))}
         </div>
       </div>
       <div className="max-w-4xl mx-auto px-4 py-10">
 
-        
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -93,63 +94,62 @@ const MyOrders = () => {
         {/* Orders List */}
         <div className="space-y-4">
           {orders.map((order) => (
-            <div 
-              key={order.id} 
-              className="group relative bg-white border border-zinc-200 rounded-3xl p-4 sm:p-6 transition-all hover:shadow-xl hover:shadow-zinc-200/50 active:scale-[0.99] cursor-pointer"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center gap-6">
-                
-                {/* Product Thumbnail Group */}
-                <div className="relative h-20 w-20 flex-shrink-0">
-                  <img 
-                    src={order.image} 
-                    alt="Order thumb" 
-                    className="h-full w-full object-cover rounded-2xl border border-zinc-100"
-                  />
-                  {order.itemsCount > 1 && (
-                    <div className="absolute -bottom-2 -right-2 bg-zinc-900 text-white text-[10px] font-bold px-2 py-1 rounded-lg border-2 border-white">
-                      +{order.itemsCount - 1} More
+            <Link href={`/dashboard/my-orders/${order.id}`} key={order.id} className="group block">
+              <div className="relative bg-white border border-zinc-200 rounded-3xl p-4 sm:p-6 transition-all hover:shadow-xl hover:shadow-zinc-200/50 active:scale-[0.99] cursor-pointer">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+
+                  {/* Product Thumbnail Group */}
+                  <div className="relative h-20 w-20 flex-shrink-0">
+                    <img
+                      src={order.image}
+                      alt="Order thumb"
+                      className="h-full w-full object-cover rounded-2xl border border-zinc-100"
+                    />
+                    {order.itemsCount > 1 && (
+                      <div className="absolute -bottom-2 -right-2 bg-zinc-900 text-white text-[10px] font-bold px-2 py-1 rounded-lg border-2 border-white">
+                        +{order.itemsCount - 1} More
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Order Details */}
+                  <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center">
+                    <div>
+                      <p className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">Order ID</p>
+                      <p className="font-bold text-zinc-900 mt-0.5">{order.id}</p>
                     </div>
-                  )}
-                </div>
 
-                {/* Order Details */}
-                <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center">
-                  <div>
-                    <p className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">Order ID</p>
-                    <p className="font-bold text-zinc-900 mt-0.5">{order.id}</p>
-                  </div>
+                    <div className="hidden sm:block">
+                      <p className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">Date Placed</p>
+                      <p className="font-medium text-zinc-600 mt-0.5">{order.date}</p>
+                    </div>
 
-                  <div className="hidden sm:block">
-                    <p className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">Date Placed</p>
-                    <p className="font-medium text-zinc-600 mt-0.5">{order.date}</p>
-                  </div>
+                    <div>
+                      <p className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">Total Amount</p>
+                      <p className="font-bold text-emerald-600 mt-0.5">৳{order.total.toFixed(2)}</p>
+                    </div>
 
-                  <div>
-                    <p className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">Total Amount</p>
-                    <p className="font-bold text-emerald-600 mt-0.5">৳{order.total.toFixed(2)}</p>
-                  </div>
-
-                  <div className="flex flex-col items-start sm:items-end">
-                    <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full border text-[11px] font-bold uppercase tracking-tight ${getStatusStyle(order.status)}`}>
-                      {getStatusIcon(order.status)}
-                      {order.status}
+                    <div className="flex flex-col items-start sm:items-end">
+                      <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full border text-[11px] font-bold uppercase tracking-tight ${getStatusStyle(order.status)}`}>
+                        {getStatusIcon(order.status)}
+                        {order.status}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Arrow */}
-                <div className="hidden md:block text-zinc-300 group-hover:text-zinc-900 transition-colors">
-                  <ChevronRight size={20} />
+                  {/* Arrow */}
+                  <div className="hidden md:block text-zinc-300 group-hover:text-zinc-900 transition-colors">
+                    <ChevronRight size={20} />
+                  </div>
                 </div>
-              </div>
-            </div>
+                </div>
+            </Link>
           ))}
         </div>
 
         {/* Empty State Help */}
         <div className="mt-12 text-center p-8 border-2 border-dashed border-zinc-200 rounded-[2.5rem]">
-           <p className="text-zinc-500 text-sm">Can't find an order? <button className="text-emerald-600 font-bold hover:underline">Contact Support</button></p>
+          <p className="text-zinc-500 text-sm">Can't find an order? <button className="text-emerald-600 font-bold hover:underline">Contact Support</button></p>
         </div>
       </div>
     </div>
