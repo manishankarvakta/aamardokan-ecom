@@ -67,12 +67,11 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
         <div className="flex items-center gap-3">
           
           {/* Wishlist Button */}
-          <Link href="/wishlist" aria-label="Wishlist" className="rounded-md border border-zinc-300 bg-white p-2 hover:bg-zinc-50 transition-colors">
+          <Link href="/wishlist" aria-label="Wishlist" className="cursor-pointer rounded-md border border-zinc-300 bg-white p-2 hover:bg-zinc-50 transition-colors">
             <Heart size={20} className="text-emerald-600" fill="currentColor" />
           </Link>
-
           {/* Cart Button */}
-          <Link href="/cart" aria-label="Cart" className="relative rounded-md border border-zinc-300 bg-white p-2 hover:bg-zinc-50 transition-colors">
+          <Link href="/cart" aria-label="Cart" className="cursor-pointer relative rounded-md border border-zinc-300 bg-white p-2 hover:bg-zinc-50 transition-colors">
             <ShoppingCart size={20} className="text-emerald-600" />
             <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white">
               {totalItems}

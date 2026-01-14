@@ -29,7 +29,7 @@ export default function ClientLayout({ children }: Props) {
 
   return (
     <StoreProvider>
-      <Toaster position="top-right" richColors />
+      <Toaster position="bottom-right" richColors />
       <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="pt-16 flex min-h-screen bg-zinc-100">
         <aside

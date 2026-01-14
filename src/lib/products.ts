@@ -71,3 +71,30 @@ export async function searchProducts(query: string, category?: string): Promise<
   if (!q) return base;
   return base.filter((p) => p.name.toLowerCase().includes(q));
 }
+
+export type ProductWithSlug = Product & { slug: string };
+
+function slugify(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+export async function getAllProducts(): Promise<ProductWithSlug[]> {
+  await new Promise((r) => setTimeout(r, 150));
+  return PRODUCTS.map((p) => ({ ...p, slug: slugify(p.name) }));
+}
+
+export async function getProductBySlug(slug: string): Promise<ProductWithSlug | null> {
+  await new Promise((r) => setTimeout(r, 150));
+  const p = PRODUCTS.find((item) => slugify(item.name) === slug);
+  return p ? { ...p, slug } : null;
+}
+
+// export async function getAllProducts(): Promise<Product[]> {
+//   await new Promise((r) => setTimeout(r, 150));
+//   return PRODUCTS;
+// }
+
+// export async function getProductBySlug(slug: string): Promise<Product | null> {
+//   await new Promise((r) => setTimeout(r, 150));
+//   return PRODUCTS.find((p) => p.slug === slug) ?? null;
+// }

@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { getCategories } from "@/lib/products";
+import Link from "next/link";
 
 export default function CategorySidebar() {
   const router = useRouter();
@@ -21,12 +22,12 @@ export default function CategorySidebar() {
       <h3 className="text-sm font-semibold text-zinc-700 mb-3">Categories</h3>
       <ul className="space-y-1">
         <li>
-          <button
-            onClick={() => setCategory(undefined)}
+          <Link
+            href="/products"
             className={`w-full text-left rounded-md px-3 py-2 text-sm ${!active ? "bg-white shadow-sm border border-zinc-200" : "hover:bg-zinc-100"}`}
           >
             All Products
-          </button>
+          </Link>
         </li>
         {categories.map((c) => (
           <li key={c.slug}>

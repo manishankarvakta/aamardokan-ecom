@@ -48,7 +48,7 @@ export default function Home() {
           ))}
           <CategoryCard
             key="all"
-            category={{ id: "all", name: "All Products", slug: "", icon: "🔍", color: "#999" }}
+            category={{ id: "all", name: "All Products", slug: "all", icon: "🔍", color: "#999" }}
             active={!activeCategory}
             onClick={() => setCategory(undefined)}
           />
@@ -58,8 +58,8 @@ export default function Home() {
       <section className="px-4 lg:px-8 py-8">
         <h2 className="text-xl font-semibold mb-4">Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
-          {products.map((p) => (
-            <ProductCard key={p.id} product={p} />
+          {products.slice(0,10).map((p) => (
+            <ProductCard key={p.slug} product={p} />
           ))}
         </div>
       </section>

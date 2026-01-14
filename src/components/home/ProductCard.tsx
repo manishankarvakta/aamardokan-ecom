@@ -4,13 +4,15 @@ import type { Product } from "@/lib/products";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/store/features/cartSlice";
-import { useState } from "react";
-import ProductDetailModal from "@/components/home/ProductDetailModal";
+// import { useState } from "react";
+// import ProductDetailModal from "@/components/home/ProductDetailModal";
 import { toast } from "sonner";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductCard({ product }: { product: Product }) {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   // Logic to send product to Redux Store
   const handleAddToCart = () => {
@@ -30,7 +32,7 @@ export default function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div onClick={() => setIsOpen(true)} className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 cursor-pointer">
+    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 ">
       
       {/* Image Container */}
       <div className="relative aspect-[4/5] h-48 overflow-hidden bg-zinc-50">
@@ -44,23 +46,24 @@ export default function ProductCard({ product }: { product: Product }) {
         </button>
 
         {/* Product Image with Zoom Effect */}
-        <img
+        <Image
+        fill
           src={product.image}
           alt={product.name}
           className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
         />
 
         {/* Add to Cart - Sliding up from bottom of Image */}
-        <div className="absolute inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-300 ease-out group-hover:translate-y-0 bg-gradient-to-t from-black/40 to-transparent">
-          <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }} className="flex w-40 mx-auto items-center justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all">
-            <ShoppingCart size={18} />
+        <div className="absolute cursor-pointer inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-300 ease-out group-hover:translate-y-0 bg-gradient-to-t from-black/40 to-transparent">
+          <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }} className="flex w-40 mx-auto items-center cursor-pointer justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all">
+            <ShoppingCart size={15} />
             Add to Cart
           </button>
         </div>
       </div>
 
       {/* Product Details (Static below the image) */}
-      <div className="flex flex-col p-4">
+      <Link href={`/products/${product.slug}`} className="flex flex-col p-4 cursor-pointer">
         <div className="mb-1">
           <span className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Category</span>
           <h3 className="text-sm font-semibold text-zinc-800 line-clamp-1 group-hover:text-emerald-600 transition-colors">
@@ -73,8 +76,8 @@ export default function ProductCard({ product }: { product: Product }) {
             ${product.price.toFixed(2)}
           </span>
         </div>
-      </div>
-      <ProductDetailModal product={product} open={isOpen} onClose={() => setIsOpen(false)} />
+      </Link>
+      {/* <ProductDetailModal product={product} open={isOpen} onClose={() => setIsOpen(false)} /> */}
     </div>
   );
 }

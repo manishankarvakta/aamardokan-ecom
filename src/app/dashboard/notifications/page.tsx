@@ -26,7 +26,7 @@ const initialNotifications = [
     color: 'text-amber-600 bg-amber-50'
   },
   {
-    id: 3,
+    id: 3, 
     type: 'system',
     title: 'Address Updated',
     message: 'Your office address has been successfully updated in your profile settings.',
