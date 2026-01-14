@@ -76,7 +76,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-zinc-100">
+    <div className="pt-8 min-h-screen bg-zinc-100">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="min-h-[calc(100vh-6rem)] flex items-center justify-center">
           <div className="w-full max-w-md rounded-md border border-zinc-200 bg-white shadow-sm">
@@ -88,7 +88,7 @@ export default function RegisterPage() {
               <h1 className="text-xl text-center font-semibold text-zinc-900">Create your account</h1>
               <p className="mt-1 text-sm text-center text-zinc-600">Join us and start shopping.</p>
 
-              <form onSubmit={onSubmit} className="mt-6 space-y-4">
+              <form onSubmit={onSubmit} className="mt-6 space-y-2">
                 {error && <div className="rounded-md bg-rose-50 text-rose-700 border border-rose-200 px-3 py-2 text-sm">{error}</div>}
                 <div>
                   <label className="block text-sm font-medium text-zinc-700">Full name</label>

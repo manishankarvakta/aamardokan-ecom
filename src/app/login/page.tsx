@@ -13,7 +13,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-zinc-100">
+    <div className="min-h-screen bg-zinc-100">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="min-h-[calc(100vh-6rem)] flex items-center justify-center">
           <div className="w-full max-w-md rounded-md border border-zinc-200 bg-white shadow-sm">

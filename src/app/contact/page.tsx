@@ -33,59 +33,7 @@ const Contact = () => {
             <div className="max-w-7xl mx-auto px-4 -mt-10 pb-20">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-                    {/* LEFT: Contact Info Cards */}
-                    <div className="lg:col-span-4 space-y-4">
-                        <div className="bg-white border border-zinc-100 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/50">
-                            <div className="space-y-8">
-                                <div className="flex gap-4">
-                                    <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 flex-shrink-0">
-                                        <Phone size={24} />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Call Us</p>
-                                        <p className="text-lg font-bold text-zinc-900">+880 1712-345678</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-4">
-                                    <div className="h-12 w-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
-                                        <Mail size={24} />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Email Us</p>
-                                        <p className="text-lg font-bold text-zinc-900">support@grocery.com</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-4">
-                                    <div className="h-12 w-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 flex-shrink-0">
-                                        <MapPin size={24} />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Visit Us</p>
-                                        <p className="text-lg font-bold text-zinc-900">Banani, Dhaka-1213</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="mt-12 pt-8 border-t border-zinc-50">
-                                <div className="flex items-center gap-3 text-emerald-600 bg-emerald-50 p-4 rounded-2xl">
-                                    <Clock size={20} />
-                                    <p className="text-sm font-bold uppercase tracking-tight">Response time: &lt; 2 Hours</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Live Chat Teaser */}
-                        <div className="bg-emerald-600 p-8 rounded-[2.5rem] text-white">
-                            <MessageCircle size={32} className="mb-4" />
-                            <h3 className="text-xl font-bold">Live Support</h3>
-                            <p className="text-emerald-100 text-sm mt-2">Chat with our experts right now for instant help.</p>
-                            <button className="mt-6 w-full py-3 bg-white text-emerald-600 rounded-xl font-black text-sm hover:bg-emerald-700 hover:text-white transition-all">
-                                Start Chatting
-                            </button>
-                        </div>
-                    </div>
+                    
 
                     {/* RIGHT: Contact Form */}
                     <div className="lg:col-span-8">
@@ -137,6 +85,60 @@ const Contact = () => {
                                     </button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+
+                    {/* LEFT: Contact Info Cards */}
+                    <div className="lg:col-span-4 space-y-4">
+                        <div className="bg-white border border-zinc-100 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/50">
+                            <div className="space-y-8">
+                                <div className="flex gap-4">
+                                    <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                                        <Phone size={24} />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Call Us</p>
+                                        <p className="text-lg font-bold text-zinc-900">+880 1712-345678</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-4">
+                                    <div className="h-12 w-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                        <Mail size={24} />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Email Us</p>
+                                        <p className="text-lg font-bold text-zinc-900">support@grocery.com</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-4">
+                                    <div className="h-12 w-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 flex-shrink-0">
+                                        <MapPin size={24} />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Visit Us</p>
+                                        <p className="text-lg font-bold text-zinc-900">Banani, Dhaka-1213</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-12 pt-8 border-t border-zinc-50">
+                                <div className="flex items-center gap-3 text-emerald-600 bg-emerald-50 p-4 rounded-2xl">
+                                    <Clock size={20} />
+                                    <p className="text-sm font-bold uppercase tracking-tight">Response time: &lt; 2 Hours</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Live Chat Teaser */}
+                        <div className="bg-emerald-600 p-8 rounded-[2.5rem] text-white">
+                            <MessageCircle size={32} className="mb-4" />
+                            <h3 className="text-xl font-bold">Live Support</h3>
+                            <p className="text-emerald-100 text-sm mt-2">Chat with our experts right now for instant help.</p>
+                            <button className="mt-6 w-full py-3 bg-white text-emerald-600 rounded-xl font-black text-sm hover:bg-emerald-700 hover:text-white transition-all">
+                                Start Chatting
+                            </button>
                         </div>
                     </div>
 

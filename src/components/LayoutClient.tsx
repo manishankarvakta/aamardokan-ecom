@@ -22,7 +22,13 @@ export default function ClientLayout({ children }: Props) {
   useEffect(() => {
     if (pathname?.startsWith("/dashboard")) {
       setIsSidebarOpen(false);
-    } else {
+    } else if( pathname?.startsWith("/login")) {
+      setIsSidebarOpen(false);
+    }
+    else if( pathname?.startsWith("/register")) {
+      setIsSidebarOpen(false);
+    }
+    else {
       setIsSidebarOpen(true); // optional: reopen on other routes
     }
   }, [pathname]);
