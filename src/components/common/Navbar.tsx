@@ -45,7 +45,9 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
         </button>
         <Link href="/" className="flex items-center gap-2 font-semibold text-zinc-900">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded bg-emerald-600 text-white">A</span>
-          <span>Ammar Dokan</span>
+          <span className="text-xl font-bold tracking-tight text-emerald-700">
+              Aamar <span className="text-emerald-600">Dokan</span>
+            </span>
         </Link>
 
         <form onSubmit={onSearch} className="flex-1 max-w-xl mx-auto">

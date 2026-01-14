@@ -1,18 +1,18 @@
 "use client";
-import { ShoppingCart, Heart } from "lucide-react";
+import { ShoppingCart, Heart, Eye } from "lucide-react";
 import type { Product } from "@/lib/products";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/store/features/cartSlice";
-// import { useState } from "react";
-// import ProductDetailModal from "@/components/home/ProductDetailModal";
+import { useState } from "react";
+import ProductDetailModal from "@/components/home/ProductDetailModal";
 import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductCard({ product }: { product: Product }) {
   const dispatch = useDispatch();
-  // const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Logic to send product to Redux Store
   const handleAddToCart = () => {
@@ -52,6 +52,21 @@ export default function ProductCard({ product }: { product: Product }) {
           alt={product.name}
           className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
         />
+       <div>
+  <button
+    onClick={(e) => { e.stopPropagation(); setIsOpen(true); }}
+    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+      flex h-10 w-10 items-center justify-center rounded-full
+      bg-slate-100 text-emerald-600 opacity-0 shadow-lg
+      transition-all delay-150 duration-300
+      hover:text-emerald-500 cursor-pointer
+      group-hover:opacity-100"
+    title="Quick View"
+  >
+    <Eye size={20} />
+  </button>
+</div>
+
 
         {/* Add to Cart - Sliding up from bottom of Image */}
         <div className="absolute cursor-pointer inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-300 ease-out group-hover:translate-y-0 bg-gradient-to-t from-black/40 to-transparent">
@@ -60,6 +75,7 @@ export default function ProductCard({ product }: { product: Product }) {
             Add to Cart
           </button>
         </div>
+        
       </div>
 
       {/* Product Details (Static below the image) */}
@@ -77,7 +93,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
       </Link>
-      {/* <ProductDetailModal product={product} open={isOpen} onClose={() => setIsOpen(false)} /> */}
+      <ProductDetailModal product={product} open={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 }

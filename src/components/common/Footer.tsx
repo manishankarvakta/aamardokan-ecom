@@ -39,7 +39,7 @@ const Footer = () => {
               <ShoppingCart className="h-5 w-5" />
             </div>
             <span className="text-xl font-bold tracking-tight text-emerald-700">
-              TechSoul <span className="text-emerald-600">Grocery</span>
+              Aamar <span className="text-emerald-600">Dokan</span>
             </span>
           </Link>
           
