@@ -55,7 +55,7 @@ export default function ProductDetailsPage() {
   };
 
   return (
-    <div className="pt-16">
+    <div className="">
       <div className="mx-auto max-w-7xl px-4 lg:px-8 py-8">
         <div className="flex items-center gap-2 text-sm text-zinc-500">
           <Link href="/" className="hover:text-emerald-700">Home</Link>
@@ -109,30 +109,35 @@ export default function ProductDetailsPage() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-zinc-900">Related Products</h3>
           </div>
-          <div className="grid bg-red-400 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
-            {related.length > 0 && (
-              <Swiper
-                modules={[Autoplay, Navigation, Grid]}
-                autoplay={{ delay: 3500, disableOnInteraction: false }}
-                navigation
-                slidesPerView={2}
-                grid={{ rows: 2, fill: "row" }}
-                breakpoints={{ 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 }, 1280: { slidesPerView: 4 } }}
-                observer
-                observeParents
-                className="!pb-10"
-                key={`rel-${slug}-${related.length}`}
-              >
 
-                {related.map((p) => (
-                  <SwiperSlide key={p.slug}>
-                    <ProductCard product={p} />
-                  </SwiperSlide>
-                ))}
+          {related.length > 0 && (
+            <Swiper
+              modules={[Autoplay, Navigation, Grid]}
+              autoplay={{ delay: 3500, disableOnInteraction: false }}
+              navigation
+              // spaceBetween={16}
+              slidesPerView={2}
+              grid={{ rows: 2, fill: "row" }}
 
-              </Swiper>
-            )}
-          </div>
+              breakpoints={{
+                640: { slidesPerView: 2, spaceBetween: 16 },
+                1024: { slidesPerView: 3, spaceBetween: 16 },
+                1280: { slidesPerView: 5, spaceBetween: 16 }
+              }}
+              observer
+              observeParents
+              className="!pb-10"
+              key={`rel-${slug}-${related.length}`}
+            >
+
+              {related.map((p) => (
+                <SwiperSlide key={p.slug}>
+                  <ProductCard product={p} />
+                </SwiperSlide>
+              ))}
+
+            </Swiper>
+          )}
         </div>
       </div>
     </div>
