@@ -132,9 +132,10 @@ export default function ProductDetailsPage() {
 
               {related.map((p) => (
                 <SwiperSlide key={p.slug}>
-                  <ProductCard product={p} />
+                  <ProductCard key={p.slug} product={p} />
                 </SwiperSlide>
               ))}
+
 
             </Swiper>
           )}

@@ -4,7 +4,7 @@ import React, { useMemo } from "react";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/lib/store/store";
-import { addToCart, removeFromCart } from "@/lib/store/features/cartSlice";
+import { addToCart, decrementQuantity, removeFromCart } from "@/lib/store/features/cartSlice";
 import Link from "next/link";
 import { toast } from "sonner";
 
@@ -32,10 +32,7 @@ const CartPage: React.FC = () => {
   };
 
   const handleDecrease = (id: string) => {
-    // Logic for decrease usually lives in slice, 
-    // for now we'll just demonstrate removing or dispatching a 'decrement' action
-    // If you haven't made a decrement action yet, this is a placeholder
-    console.log("Decrement ID:", id);
+    dispatch(decrementQuantity(id));
   };
 
   const handleRemove = (id: string) => {
