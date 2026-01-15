@@ -70,7 +70,7 @@ const Footer = () => {
               <li><Link href="/products?category=bestsellers" className="hover:text-emerald-700">Best Sellers</Link></li>
               <li><Link href="/products?category=electronics" className="hover:text-emerald-700">Electronics</Link></li>
               <li><Link href="/products?category=fashion" className="hover:text-emerald-700">Fashion</Link></li>
-              <li><Link href="/deals" className="hover:text-emerald-700">Deals</Link></li>
+              {/* <li><Link href="/deals" className="hover:text-emerald-700">Deals</Link></li> */}
             </ul>
           </div>
 
@@ -82,7 +82,7 @@ const Footer = () => {
               <li><Link href="/faq" className="hover:text-emerald-700">FAQs</Link></li>
               <li><Link href="/shipping" className="hover:text-emerald-700">Shipping Info</Link></li>
               <li><Link href="/returns" className="hover:text-emerald-700">Returns & Exchanges</Link></li>
-              <li><Link href="/tracking" className="hover:text-emerald-700">Order Tracking</Link></li>
+              {/* <li><Link href="/tracking" className="hover:text-emerald-700">Order Tracking</Link></li> */}
             </ul>
           </div>
 

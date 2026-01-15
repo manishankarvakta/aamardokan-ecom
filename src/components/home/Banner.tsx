@@ -40,6 +40,7 @@ const slides = [
 
 export default function Banner() {
   const [current, setCurrent] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Auto-slide every 5 seconds
   useEffect(() => {
@@ -48,6 +49,10 @@ export default function Banner() {
     }, 5000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [current]);
 
   const nextSlide = () => setCurrent(current === slides.length - 1 ? 0 : current + 1);
   const prevSlide = () => setCurrent(current === 0 ? slides.length - 1 : current - 1);
@@ -70,47 +75,60 @@ export default function Banner() {
             fill
             priority
             className="object-cover"
+            onLoadingComplete={() => setImageLoaded(true)}
           />
 
           {/* Premium Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-          {/* Content */}
-          <div className="absolute inset-0 flex items-center px-6 sm:px-12 lg:px-24">
-            <div className="max-w-2xl text-left">
-              <motion.h1 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight"
-              >
-                {slides[current].title.split(',')[0]} 
-                <span className={`block ${slides[current].color}`}>
-                  {slides[current].title.split(',')[1] || ""}
-                </span>
-              </motion.h1 >
-              <motion.p 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="mt-4 text-base sm:text-lg text-zinc-200 opacity-90 max-w-md"
-              >
-                {slides[current].subtitle}
-              </motion.p>
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                <Link
-                  href="/products"
-                  className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-emerald-900/20 hover:bg-emerald-500 transition-all active:scale-95"
+          {/* Content or Skeleton */}
+          {imageLoaded ? (
+            <div className="absolute inset-0 flex items-center px-6 sm:px-12 lg:px-24">
+              <div className="max-w-2xl text-left">
+                <motion.h1 
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight"
                 >
-                  Shop Now
-                </Link>
-              </motion.div>
+                  {slides[current].title.split(',')[0]} 
+                  <span className={`block ${slides[current].color}`}>
+                    {slides[current].title.split(',')[1] || ""}
+                  </span>
+                </motion.h1>
+                <motion.p 
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-4 text-base sm:text-lg text-zinc-200 opacity-90 max-w-md"
+                >
+                  {slides[current].subtitle}
+                </motion.p>
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <Link
+                    href="/products"
+                    className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-emerald-900/20 hover:bg-emerald-500 transition-all active:scale-95"
+                  >
+                    Shop Now
+                  </Link>
+                </motion.div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="absolute inset-0 flex items-center px-6 sm:px-12 lg:px-24">
+              <div className="max-w-2xl w-full">
+                <div className="space-y-4 animate-pulse">
+                  <div className="h-8 sm:h-12 w-3/4 bg-white/20 rounded"></div>
+                  <div className="h-4 sm:h-6 w-1/2 bg-white/20 rounded"></div>
+                  <div className="h-10 w-32 bg-white/20 rounded mt-6"></div>
+                </div>
+              </div>
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
 

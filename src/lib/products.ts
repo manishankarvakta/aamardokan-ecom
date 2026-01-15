@@ -45,12 +45,12 @@ const PRODUCTS: Product[] = [
   { id: "p-chicken", name: "Chicken Breast (500g)", slug: "chicken-breast-500g", price: 5.99, image: "https://images.unsplash.com/photo-1604503468506-a8da13d82791", category: "meat", description: "Fresh chicken breast, high protein and juicy." },
   { id: "p-beef",    name: "Beef Steak (400g)",     slug: "beef-steak-400g",     price: 9.49, image: "https://images.unsplash.com/photo-1628543108325-1c27cd7246b3", category: "meat", description: "Tender beef steak, perfect for grilling or frying." },
 
-  { id: "p-salmon", name: "Salmon Fillet (400g)",  slug: "salmon-fillet-400g", price: 8.99, image: "https://images.unsplash.com/photo-1544025162-d76694265947",  category: "seafood", description: "Fresh salmon fillet, rich in omega-3." },
+  { id: "p-salmon", name: "Salmon Fillet (400g)",  slug: "salmon-fillet-400g", price: 8.99, image: "https://images.unsplash.com/photo-1544025162-d76694265947",   category: "seafood", description: "Fresh salmon fillet, rich in omega-3." },
   { id: "p-shrimp", name: "Fresh Shrimp (300g)",   slug: "fresh-shrimp-300g",  price: 7.49, image: "https://images.unsplash.com/photo-1628255140853-67917724b4e8", category: "seafood", description: "Fresh shrimp, ideal for cooking or grilling." },
 
-  { id: "p-detergent", name: "Laundry Detergent",  slug: "laundry-detergent",  price: 9.49, image: "https://images.unsplash.com/photo-1624372635282-b324bcdd4907", category: "household", description: "Powerful laundry detergent for clean and fresh clothes." },
+  { id: "p-detergent", name: "Laundry Detergent",  slug: "laundry-detergent",  price: 9.49, image: "https://images.unsplash.com/photo-1624372635282-b324bcdd4907",       category: "household", description: "Powerful laundry detergent for clean and fresh clothes." },
   { id: "p-dishwash",  name: "Dishwashing Liquid", slug: "dishwashing-liquid", price: 3.79, image: "https://plus.unsplash.com/premium_photo-1664372899205-7cccbe1ad0b0", category: "household", description: "Effective dishwashing liquid for sparkling clean dishes." },
-  { id: "p-tissue",    name: "Paper Towels",       slug: "paper-towels",       price: 2.99, image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f", category: "household", description: "Soft and absorbent paper towels for everyday use." },
+  { id: "p-tissue",    name: "Paper Towels",       slug: "paper-towels",       price: 2.99, image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f",       category: "household", description: "Soft and absorbent paper towels for everyday use." },
 ];
 
 

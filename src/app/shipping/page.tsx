@@ -97,13 +97,13 @@ const Shipping = () => {
               </p>
             </div>
 
-            <div className="bg-zinc-900 rounded-[2.5rem] p-8 text-white relative overflow-hidden group">
+            <div className="bg-emerald-600 rounded-[2.5rem] p-8 text-white relative overflow-hidden group">
               <div className="relative z-10">
                 <h4 className="text-xl font-bold mb-4">Freshness First!</h4>
                 <ul className="space-y-3">
                   {['Strict quality checks', 'Cold chain delivery', 'Contactless drop-off'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-zinc-400">
-                      <CheckCircle2 size={16} className="text-emerald-500" />
+                    <li key={i} className="flex items-center gap-3 text-sm text-zinc-200">
+                      <CheckCircle2 size={16} className="text-emerald-400" />
                       {item}
                     </li>
                   ))}
