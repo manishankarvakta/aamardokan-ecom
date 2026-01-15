@@ -12,16 +12,21 @@ export default function CategoryCard({
   return (
     <button
       onClick={onClick}
-      className={`group rounded-md border px-3 py-2 text-sm transition ${
+      className={`group cursor-pointer flex flex-col items-center justify-center rounded-xl border p-4 transition ${
         active ? "bg-white border-zinc-200 shadow-sm" : "bg-zinc-50 border-zinc-200 hover:bg-white"
       }`}
     >
-      <div className="flex items-center justify-between">
-        <span className="font-medium text-zinc-900">{category.name}</span>
-        <span className={`h-12 w-10 rounded bg-${category.color} text-white flex items-center justify-center ${active ? "opacity-100" : "opacity-80 group-hover:opacity-100"}`}>
-          {category.icon} 
-        </span>
+      <div
+        className={`flex h-12 w-12 items-center justify-center rounded-full text-2xl transition-transform ${
+          active ? "scale-105" : "group-hover:scale-105"
+        }`}
+        style={{ backgroundColor: category.color }}
+      >
+        <span className="select-none">{category.icon}</span>
       </div>
+      <span className="mt-2 text-sm font-medium text-zinc-900 text-center line-clamp-1">
+        {category.name}
+      </span>
     </button>
   );
 }

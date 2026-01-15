@@ -32,7 +32,7 @@ export default function ProductDetailsPage() {
       setProduct(p ?? null);
       const all = await getAllProducts();
       if (cancelled) return;
-      const rel = p ? all.filter(item => item.category === p.category && item.slug !== p.slug).slice(0, 12) : [];
+      const rel = p ? all.filter(item => item.category === p.category && item.slug !== p.slug).slice(0, 20) : [];
       setRelated(rel);
     })();
     return () => { cancelled = true; };
@@ -113,7 +113,7 @@ export default function ProductDetailsPage() {
           {related.length > 0 && (
             <Swiper
               modules={[Autoplay, Navigation, Grid]}
-              autoplay={{ delay: 3500, disableOnInteraction: false }}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
               navigation
               // spaceBetween={16}
               slidesPerView={2}

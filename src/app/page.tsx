@@ -38,6 +38,7 @@ export default function Home() {
 
       <section className="px-4 lg:px-8 mt-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          
           {categories.map((c) => (
             <CategoryCard
               key={c.slug}
@@ -46,12 +47,7 @@ export default function Home() {
               onClick={() => setCategory(c.slug)}
             />
           ))}
-          <CategoryCard
-            key="all"
-            category={{ id: "all", name: "All Products", slug: "all", icon: "🔍", color: "#999" }}
-            active={!activeCategory}
-            onClick={() => setCategory(undefined)}
-          />
+        
         </div>
       </section>
 

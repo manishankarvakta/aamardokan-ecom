@@ -88,13 +88,3 @@ export async function getProductBySlug(slug: string): Promise<ProductWithSlug | 
   const p = PRODUCTS.find((item) => slugify(item.name) === slug);
   return p ? { ...p, slug } : null;
 }
-
-// export async function getAllProducts(): Promise<Product[]> {
-//   await new Promise((r) => setTimeout(r, 150));
-//   return PRODUCTS;
-// }
-
-// export async function getProductBySlug(slug: string): Promise<Product | null> {
-//   await new Promise((r) => setTimeout(r, 150));
-//   return PRODUCTS.find((p) => p.slug === slug) ?? null;
-// }
