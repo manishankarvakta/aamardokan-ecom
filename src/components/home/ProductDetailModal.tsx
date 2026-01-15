@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/store/features/cartSlice";
 import { toast } from "sonner";
 import Image from "next/image";
+import { createPortal } from "react-dom";
 
 export default function ProductDetailModal({
   product,
@@ -39,26 +40,26 @@ export default function ProductDetailModal({
     setOrigin({ x, y });
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       
       {/* 1. BACKDROP (Clicking this closes the modal) */}
       <div 
         className="fixed inset-0 z-50 bg-zinc-900/70 backdrop-blur-sm animate-in fade-in duration-200" 
-        onClick={onClose} 
+        onClick={(e) => { e.stopPropagation(); onClose(); }} 
       />
 
       {/* 2. CLOSE BUTTON (Positioned outside the white box) */}
       <button
-        onClick={onClose}
-        className="absolute cursor-pointer right-4 top-4 z-70 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 hover:rotate-90 md:right-10 md:top-10"
+        onClick={(e) => { e.stopPropagation(); onClose(); }}
+        className="absolute cursor-pointer right-4 top-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 hover:rotate-90 md:right-10 md:top-10"
         aria-label="Close modal"
       >
         <X size={32} strokeWidth={1.5} />
       </button>
 
       {/* 3. MODAL CONTENT */}
-      <div className="relative z-60 w-full max-w-5xl min-h-[60vh] overflow-hidden rounded-2xl bg-white shadow-2xl animate-in zoom-in-95 duration-200">
+      <div className="relative z-50 w-full max-w-5xl min-h-[60vh] overflow-hidden rounded-2xl bg-white shadow-2xl animate-in zoom-in-95 duration-200">
         <div className="grid grid-cols-1 md:grid-cols-2">
           
           {/* LEFT SIDE: Info */}
@@ -140,5 +141,5 @@ export default function ProductDetailModal({
         </div>
       </div>
     </div>
-  );
+  , document.body );
 }
