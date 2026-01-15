@@ -48,7 +48,7 @@ const Coupons = () => {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50/50 pb-20">
+    <div className="min-h-screen pb-20">
       <div className="max-w-5xl mx-auto px-4 py-10">
         
         {/* Header */}
@@ -70,10 +70,10 @@ const Coupons = () => {
           {initialCoupons.map((coupon) => (
             <div 
               key={coupon.id} 
-              className={`relative flex items-center bg-white border-2 rounded-[2rem] overflow-hidden transition-all ${coupon.isUsed ? 'opacity-60 grayscale' : 'hover:border-emerald-500 shadow-sm'}`}
+              className={`relative flex items-center bg-white  rounded-[1rem] overflow-hidden transition-all ${coupon.isUsed ? 'opacity-60 grayscale' : 'border-emerald-500 shadow-sm'}`}
             >
               {/* Left Side: Discount Value */}
-              <div className={`flex flex-col items-center justify-center w-32 h-full p-4 text-center border-r-2 border-dashed ${coupon.isUsed ? 'bg-zinc-100 border-zinc-200' : 'bg-emerald-50 border-emerald-100'}`}>
+              <div className={`flex flex-col items-center justify-center w-32 h-full p-4 text-center border-r-2 border-dashed ${coupon.isUsed ? 'bg-zinc-300 border-zinc-200' : 'bg-emerald-50 border-emerald-100'}`}>
                 <span className={`text-xl font-black ${coupon.isUsed ? 'text-zinc-500' : 'text-emerald-600'}`}>
                   {coupon.discount.split(' ')[0]}
                 </span>
@@ -107,8 +107,8 @@ const Coupons = () => {
                     onClick={() => copyToClipboard(coupon.code)}
                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all active:scale-95 ${
                       copiedCode === coupon.code 
-                      ? 'bg-emerald-600 text-white' 
-                      : 'bg-zinc-900 text-white hover:bg-emerald-600 disabled:bg-zinc-300'
+                      ? 'bg-emerald-900 text-white' 
+                      : 'bg-emerald-600 text-white hover:bg-emerald-600'
                     }`}
                   >
                     {copiedCode === coupon.code ? <Check size={14} /> : <Copy size={14} />}

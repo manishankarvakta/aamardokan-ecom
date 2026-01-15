@@ -84,7 +84,7 @@ export default function OrderDetailsPage() {
     <div className="">
       <div className="mx-auto max-w-7xl px-4 lg:px-8 py-8">
         <div className="flex items-center gap-2 text-sm text-zinc-500">
-          <Link href="/" className="hover:text-emerald-700">Home</Link>
+          <Link href="/dashboard" className="hover:text-emerald-700">Dashboard</Link>
           <ChevronRight className="h-4 w-4" />
           <Link href="/dashboard/my-orders" className="hover:text-emerald-700">My Orders</Link>
           <ChevronRight className="h-4 w-4" />

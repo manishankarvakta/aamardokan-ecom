@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Package, ChevronRight, Clock, CheckCircle2, Truck, Box, CheckCircle, Star } from 'lucide-react';
+import Image from 'next/image';
 
 // Mock Data - In a real app, you'd fetch this from your database/Redux
 const orders = [
@@ -53,33 +54,9 @@ const MyOrders = () => {
 
   return (
     <div className="min-h-screen bg-zinc-50/50 pb-20">
-      {/* Quick Stats (Order Status) */}
-      <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="font-semibold text-lg">My Orders</h2>
-          {/* <Link href="/dashboard/orders" className="text-sm text-emerald-600 hover:underline flex items-center gap-1">
-            See More <ChevronRight className="h-4 w-4" />
-          </Link> */}
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          {[
-            { label: "Processing", icon: Package, count: 0 },
-            { label: "Ready To Ship", icon: CheckCircle, count: 0 },
-            { label: "Shipped", icon: Truck, count: 0 },
-            { label: "Review", icon: Star, count: 0 },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center gap-3 group cursor-pointer">
-              <div className="h-12 w-12 rounded-full  flex items-center justify-center bg-emerald-600 text-white transition-colors">
-                <stat.icon className="h-6 w-6" />
-              </div>
-              <span className="text-sm font-medium">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      
+      
       <div className="max-w-4xl mx-auto px-4 py-10">
-
-
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -100,7 +77,8 @@ const MyOrders = () => {
 
                   {/* Product Thumbnail Group */}
                   <div className="relative h-20 w-20 flex-shrink-0">
-                    <img
+                    <Image
+                    fill
                       src={order.image}
                       alt="Order thumb"
                       className="h-full w-full object-cover rounded-2xl border border-zinc-100"
