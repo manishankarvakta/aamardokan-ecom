@@ -107,10 +107,9 @@ function FullScreenLoader() {
           <ShoppingBag size={80} className="text-emerald-600 stroke-[1.5]" />
         </div>
         {/* Decorative "Spilled" items (Circles) */}
-        <div className="absolute -top-4 -right-2 h-6 w-6 bg-amber-400 rounded-full animate-pulse" />
-        <div className="absolute -bottom-2 -left-4 h-4 w-4 bg-rose-400 rounded-full" />
-      </div>
-      
+        <div className="absolute -top-4 -right-2 h-6 w-6 animate-ping bg-emerald-500 rounded-full" />
+        <div className="absolute -bottom-2 -left-4 h-6 w-6 animate-ping bg-emerald-900 rounded-full" />
+      </div>   
     </div>
   );
 }
