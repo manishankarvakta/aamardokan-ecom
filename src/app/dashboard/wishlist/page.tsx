@@ -1,121 +1,75 @@
 "use client";
 
 import React from 'react';
-import { Heart, ShoppingCart, Trash2, ArrowLeft, ShoppingBag } from 'lucide-react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/lib/store/store';
+import { Heart, Trash2, ArrowLeft, ShoppingBag, X, Star } from 'lucide-react';
+import { useDispatch } from 'react-redux';
 import { addToCart } from '@/lib/store/features/cartSlice';
-// import { removeFromWishlist } from '@/lib/store/features/wishlistSlice'; 
 import Link from 'next/link';
 import { toast } from 'sonner';
 import Image from 'next/image';
+import ProductCard from '@/components/home/ProductCard';
 
 const WishList = () => {
   const dispatch = useDispatch();
   
-  // 1. Get items from Redux (Mocking with selector structure)
-  // Replace this with your actual selector: const items = useSelector((state: RootState) => state.wishlist.items);
+  // Mocking data - replace with your useSelector
   const items = [
-    { id: '1', name: 'Fresh Organic Bananas', price: 4.99, image: 'https://images.unsplash.com/photo-1571771894821-ad9902d83f4e?q=80&w=400&auto=format&fit=crop' },
-    { id: '2', name: 'Red Bell Peppers', price: 2.50, image: 'https://images.unsplash.com/photo-1563513307168-a056234296c0?q=80&w=400&auto=format&fit=crop' }
+    { id: "p-detergent", name: "Laundry Detergent",  slug: "laundry-detergent",  price: 9.49, image: "https://images.unsplash.com/photo-1624372635282-b324bcdd4907", category: "household", description: "Powerful laundry detergent for clean and fresh clothes." },
+  { id: "p-dishwash",  name: "Dishwashing Liquid", slug: "dishwashing-liquid", price: 3.79, image: "https://plus.unsplash.com/premium_photo-1664372899205-7cccbe1ad0b0", category: "household", description: "Effective dishwashing liquid for sparkling clean dishes." },
+  { id: "p-tissue",    name: "Paper Towels",       slug: "paper-towels",       price: 2.99, image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f", category: "household", description: "Soft and absorbent paper towels for everyday use." },
   ];
 
   const handleMoveToCart = (item: any) => {
     dispatch(addToCart(item));
-    toast.success("Moved to cart!");
-    // dispatch(removeFromWishlist(item.id));
+    toast.success(`${item.name} added to cart!`);
   };
 
   if (items.length === 0) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
-        <div className="bg-rose-50 p-6 rounded-full mb-6">
-          <Heart size={48} className="text-rose-400 fill-rose-100" />
+        <div className="h-24 w-24 bg-zinc-50 rounded-full flex items-center justify-center mb-6">
+          <Heart size={40} className="text-zinc-200" />
         </div>
         <h2 className="text-2xl font-black text-zinc-900">Your wishlist is empty</h2>
-        <p className="text-zinc-500 mt-2 text-center max-w-xs">
-          Save items you love here to find them easily and add them to your cart.
+        <p className="text-zinc-500 mt-2 text-center max-w-xs font-medium">
+          Start adding your favorite fresh groceries to save them for later.
         </p>
-        <Link href="/" className="mt-8 flex items-center gap-2 bg-zinc-900 text-white px-8 py-3 rounded-2xl font-bold hover:bg-emerald-600 transition-all">
+        <Link href="/" className="mt-8 flex items-center gap-2 bg-zinc-900 text-white px-10 py-4 rounded-2xl font-bold hover:bg-emerald-600 transition-all shadow-xl shadow-zinc-200">
           <ArrowLeft size={18} />
-          Back to Shop
+          Continue Shopping
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white pb-20">
-      <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="min-h-screen">
+      <div className="max-w-7xl mx-auto px-12 py-8 ">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 border-b border-zinc-100 pb-8 gap-6">
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <Heart className="text-rose-500 fill-rose-500" size={24} />
-              <h1 className="text-4xl font-black text-zinc-900 tracking-tight">My Wishlist</h1>
-            </div>
-            <p className="text-zinc-500 font-medium">You have {items.length} items saved for later.</p>
+            <h1 className="text-4xl font-black text-zinc-900 tracking-tight">Saved for Later</h1>
+            <p className="text-zinc-400 font-bold mt-1 uppercase text-[10px] tracking-widest flex items-center gap-2">
+              <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full animate-pulse" />
+              {items.length} Items in Wishlist
+            </p>
           </div>
-          <button className="flex items-center gap-2 text-sm font-bold text-zinc-400 hover:text-rose-500 transition-colors">
-            <Trash2 size={16} />
-            Clear All Items
+          <button className="flex items-center gap-2 text-xs font-black text-rose-500 bg-rose-50 px-5 py-2.5 rounded-xl hover:bg-rose-100 transition-all uppercase tracking-tight">
+            <Trash2 size={14} />
+            Clear Wishlist
           </button>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
           {items.map((item) => (
-            <div key={item.id} className="group relative flex flex-col">
-              {/* Image Box */}
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-zinc-100 border border-zinc-100">
-                <Image
-                  src={item.image} 
-                  alt={item.name} 
-                  fill
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                
-                {/* Remove Button */}
-                <button 
-                  className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center bg-white/90 backdrop-blur-md rounded-full text-zinc-400 hover:text-rose-500 shadow-sm transition-all active:scale-90"
-                  title="Remove from wishlist"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              {/* Content */}
-              <div className="mt-4 px-2">
-                <h3 className="font-bold text-zinc-900 text-lg truncate">{item.name}</h3>
-                <p className="text-xl font-black text-emerald-600 mt-1">${item.price.toFixed(2)}</p>
-                
-                <div className="mt-4 flex gap-2">
-                  <button 
-                    onClick={() => handleMoveToCart(item)}
-                    className="flex-1 flex items-center justify-center gap-2 bg-zinc-900 text-white py-3 rounded-xl text-sm font-bold hover:bg-emerald-600 transition-all active:scale-95"
-                  >
-                    <ShoppingBag size={16} />
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
+              <ProductCard key={item.slug} product={item} />
           ))}
         </div>
       </div>
     </div>
   );
 };
-
-// Small local X icon since it was used but not imported in previous snippet
-const X = ({ size, ...props }: any) => (
-  <svg 
-    width={size} height={size} viewBox="0 0 24 24" fill="none" 
-    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" {...props}
-  >
-    <path d="M18 6 6 18M6 6l12 12" />
-  </svg>
-);
 
 export default WishList;

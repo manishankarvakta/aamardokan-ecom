@@ -22,9 +22,7 @@ const SIDEBAR_LINKS = [
   { name: "My Orders", href: "/dashboard/my-orders", icon: Package },
   { name: "Wishlist", href: "/dashboard/wishlist", icon: Heart },
   { name: "Coupon", href: "/dashboard/coupons", icon: Ticket },
-  { name: "Review", href: "/dashboard/reviews", icon: Star },
-  { name: "Address Book", href: "/dashboard/address", icon: MapPin },
-  { name: "Order Tracking", href: "/dashboard/tracking", icon: Truck },
+  // { name: "Order Tracking", href: "/dashboard/tracking", icon: Truck },
   { name: "Notification", href: "/dashboard/notifications", icon: Bell },
 ];
 

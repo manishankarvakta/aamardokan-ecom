@@ -109,7 +109,7 @@ const Dashboard = () => {
       </div>
 
       {/* Utility Cards */}
-      <div className="grid md:grid-cols-2 gap-6">
+      {/* <div className="grid md:grid-cols-2 gap-6">
         <Link href="/dashboard/tracking" className="flex items-center gap-4 p-6 bg-white  rounded-xl border border-gray-100 shadow-sm transition-colors">
           <div className="h-12 w-12 rounded-full bg-green-50  text-green-600 flex items-center justify-center">
             <Truck className="h-6 w-6" />
@@ -129,7 +129,7 @@ const Dashboard = () => {
             <p className="text-sm text-gray-500">Manage shipping addresses</p>
           </div>
         </Link>
-      </div>
+      </div> */}
 
       {/* Recent Orders - Empty State */}
       <div className="space-y-4">
