@@ -26,7 +26,7 @@ const Tracking = () => {
           
           {/* LEFT: Tracking Timeline */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white border border-zinc-100 rounded-[2.5rem] p-8 shadow-sm">
+            <div className="bg-white border border-zinc-100 rounded-4xl p-8 shadow-sm">
               <div className="flex items-center justify-between mb-10">
                 <h1 className="text-2xl font-black text-zinc-900">Track Order</h1>
                 <span className="text-xs font-bold bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full uppercase tracking-tighter">
@@ -106,7 +106,7 @@ const Tracking = () => {
               <div className="space-y-4">
                 {[1, 2].map((i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <div className="h-12 w-12 bg-zinc-50 rounded-xl overflow-hidden flex-shrink-0">
+                    <div className="h-12 w-12 bg-zinc-50 rounded-2xl overflow-hidden shrink-0">
                       <img src="https://images.unsplash.com/photo-1571771894821-ad9902d83f4e?q=80&w=100" alt="prod" className="h-full w-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">

@@ -11,31 +11,6 @@ import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
 
-/**
- * Loading Skeleton Component
- * Matches the exact height and layout of the ProductCard
- */
-export function ProductCardSkeleton() {
-  return (
-    <div role="status" className="animate-pulse group relative flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white">
-      {/* Image Container Placeholder */}
-      <div className="relative aspect-[4/5] h-48 w-full bg-zinc-200">
-        <div className="absolute right-3 top-3 h-8 w-8 rounded-full bg-zinc-300/50" />
-      </div>
-
-      {/* Details Placeholder */}
-      <div className="flex flex-col p-4 space-y-3">
-        <div className="space-y-2">
-          <div className="h-2.5 w-16 bg-zinc-200 rounded-full" /> {/* Category */}
-          <div className="h-4 w-full bg-zinc-200 rounded-full" /> {/* Title */}
-        </div>
-        <div className="h-6 w-20 bg-zinc-200 rounded-md" /> {/* Price */}
-      </div>
-      <span className="sr-only">Loading...</span>
-    </div>
-  );
-}
-
 
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -64,7 +39,7 @@ export default function ProductCard({ product }: { product: Product }) {
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 ">
 
       {/* Image Container */}
-      <div className="relative aspect-[4/5] h-48 overflow-hidden bg-zinc-50">
+      <div className="relative aspect-4/5 h-48 overflow-hidden bg-zinc-50">
         {/* Wishlist Button - Top Right */}
         <button
           aria-label="Add to wishlist"
@@ -77,6 +52,8 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Product Image with Zoom Effect */}
         <Image
           fill
+          loading="lazy"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           src={product.image}
           alt={product.name}
           className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
@@ -98,7 +75,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
 
         {/* Add to Cart - Sliding up from bottom of Image */}
-        <div className="absolute cursor-pointer inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-300 ease-out group-hover:translate-y-0 bg-gradient-to-t from-black/40 to-transparent">
+        <div className="absolute cursor-pointer inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-300 ease-out group-hover:translate-y-0 bg-linear-to-t from-black/40 to-transparent">
           <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }} className="flex w-40 mx-auto items-center cursor-pointer justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all">
             <ShoppingCart size={15} />
             Add to Cart

@@ -119,7 +119,7 @@ const Shipping = () => {
         {/* Bottom Support CTA */}
         <div className="mt-16 text-center py-10 border-t border-zinc-100">
           <p className="text-zinc-500 font-medium">Still have questions about your area?</p>
-          <button className="mt-4 bg-zinc-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-emerald-600 transition-all">
+          <button className="mt-4 bg-emerald-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-emerald-600 transition-all">
             Check Your Zip Code
           </button>
         </div>

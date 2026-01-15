@@ -134,7 +134,7 @@ const Return = () => {
               { icon: <Banknote />, title: "Refund", desc: "Money is credited back to your account." },
             ].map((step, i) => (
               <div key={i} className="text-center group">
-                <div className="h-20 w-20 text-zinc-100 rounded-[2rem] flex items-center justify-center mx-auto mb-6 bg-emerald-600 group-hover:text-white transition-all duration-500 shadow-sm">
+                <div className="h-20 w-20 text-zinc-100 rounded-4xl flex items-center justify-center mx-auto mb-6 bg-emerald-600 group-hover:text-white transition-all duration-500 shadow-sm">
                   {React.cloneElement(step.icon as React.ReactElement)}
                 </div>
                 <h4 className="font-black text-zinc-900 mb-2 uppercase text-xs tracking-widest">{step.title}</h4>

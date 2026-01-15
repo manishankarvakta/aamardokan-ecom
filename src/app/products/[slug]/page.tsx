@@ -66,7 +66,7 @@ export default function ProductDetailsPage() {
         </div>
 
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-xl p-6 shadow-sm">
-          <div className="relative aspect-[4/3] bg-zinc-100 rounded-lg overflow-hidden">
+          <div className="relative aspect-4/3 bg-zinc-100 rounded-lg overflow-hidden">
             <Image src={product.image} alt={product.name} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover hover:scale-105 transition-transform duration-300" priority />
           </div>
           <div>
@@ -126,7 +126,7 @@ export default function ProductDetailsPage() {
               }}
               observer
               observeParents
-              className="!pb-10"
+              className="pb-10!"
               key={`rel-${slug}-${related.length}`}
             >
 

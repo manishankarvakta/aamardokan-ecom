@@ -76,7 +76,7 @@ const Faq = () => {
                     </h3>
                   </div>
                 </div>
-                <div className={`flex-shrink-0 ml-4 h-8 w-8 rounded-full border-2 flex items-center justify-center transition-all ${openIndex === index ? 'border-emerald-500 text-emerald-500 rotate-180' : 'border-zinc-200 text-zinc-400'}`}>
+                <div className={`shrink-0 ml-4 h-8 w-8 rounded-full border-2 flex items-center justify-center transition-all ${openIndex === index ? 'border-emerald-500 text-emerald-500 rotate-180' : 'border-zinc-200 text-zinc-400'}`}>
                   {openIndex === index ? <Minus size={16} /> : <Plus size={16} />}
                 </div>
               </button>

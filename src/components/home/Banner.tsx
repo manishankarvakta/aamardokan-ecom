@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const slides = [
+const slides = [  
   {
     id: 1,
     image: "/assets/image/banner.jpeg",
@@ -75,11 +75,11 @@ export default function Banner() {
             fill
             priority
             className="object-cover"
-            onLoadingComplete={() => setImageLoaded(true)}
+            onLoad={() => setImageLoaded(true)}
           />
 
           {/* Premium Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent" />
 
           {/* Content or Skeleton */}
           {imageLoaded ? (

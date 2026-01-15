@@ -83,11 +83,11 @@ const Notification = () => {
             notifications.map((n) => (
               <div 
                 key={n.id} 
-                className={`relative group bg-white border rounded-[2rem] p-6 transition-all hover:shadow-md ${!n.isRead ? 'border-emerald-100 bg-emerald-50/10' : 'border-zinc-100'}`}
+                className={`relative group bg-white border rounded-4xl p-6 transition-all hover:shadow-md ${!n.isRead ? 'border-emerald-100 bg-emerald-50/10' : 'border-zinc-100'}`}
               >
                 <div className="flex items-start gap-4">
                   {/* Icon */}
-                  <div className={`h-12 w-12 rounded-2xl flex items-center justify-center flex-shrink-0 ${n.color}`}>
+                  <div className={`h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 ${n.color}`}>
                     {n.icon}
                   </div>
 

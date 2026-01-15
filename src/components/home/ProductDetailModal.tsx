@@ -135,7 +135,7 @@ export default function ProductDetailModal({
               className="h-full w-full object-cover transition-transform duration-500 ease-out cursor-crosshair"
             />
             {/* Glossy Overlay */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 to-transparent opacity-50" />
+            <div className="absolute inset-0 pointer-events-none bg-linear-to-tr from-white/10 to-transparent opacity-50" />
           </div>
         </div>
       </div>

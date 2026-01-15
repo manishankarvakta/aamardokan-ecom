@@ -102,7 +102,7 @@ import { ShoppingBag } from 'lucide-react';
 function FullScreenLoader() {
   return (
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className="relative animate-bounce duration-[3000ms]">
+      <div className="relative animate-bounce duration-3000">
         <div className="bg-emerald-50 p-8 rounded-[2.5rem] border-2 border-emerald-100 shadow-xl shadow-emerald-100/50">
           <ShoppingBag size={80} className="text-emerald-600 stroke-[1.5]" />
         </div>

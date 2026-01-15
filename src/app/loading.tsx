@@ -17,8 +17,9 @@ export default function Loading() {
       </div>
       
       <div className="mt-6 flex flex-col items-center gap-2">
-        <h2 className="text-lg font-bold text-zinc-800">Setting up your shop</h2>
-        <p className="text-sm text-zinc-500 animate-pulse">Loading fresh products...</p>
+       <h2 className="text-lg font-bold text-zinc-800">Curating Your Experience</h2>
+<p className="text-sm text-zinc-500 animate-pulse">Fetching the best deals for you</p>
+
       </div>
     </div>
   );

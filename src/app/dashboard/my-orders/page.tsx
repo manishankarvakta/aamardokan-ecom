@@ -76,7 +76,7 @@ const MyOrders = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-6">
 
                   {/* Product Thumbnail Group */}
-                  <div className="relative h-20 w-20 flex-shrink-0">
+                  <div className="relative h-20 w-20 shrink-0">
                     <Image
                     fill
                       src={order.image}
