@@ -72,7 +72,7 @@ export default function ProductDetailsPage() {
           <div>
             <p className="text-[11px] uppercase tracking-widest text-zinc-400 font-bold">Product</p>
             <h1 className="mt-1 text-2xl font-bold text-zinc-900">{product.name}</h1>
-            <div className="mt-3 text-2xl font-black text-emerald-700">${product.price.toFixed(2)}</div>
+            <div className="mt-3 text-2xl font-black text-emerald-700">৳{product.price.toFixed(2)}</div>
             <p className="mt-4 text-sm text-zinc-700">{product.description}</p>
 
             <div className="mt-6 flex items-center gap-3">
@@ -82,7 +82,7 @@ export default function ProductDetailsPage() {
             </div>
 
             <div className="mt-6 flex gap-3">
-              <button onClick={add} className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
+              <button onClick={add} className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
                 <ShoppingCart size={18} />
                 Add to Cart
               </button>

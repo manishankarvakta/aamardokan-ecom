@@ -95,7 +95,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <div className="mt-1">
           <span className="text-lg font-bold text-zinc-900">
-            ${product.price.toFixed(2)}
+            ৳{product.price.toFixed(2)}
           </span>
         </div>
       </Link>

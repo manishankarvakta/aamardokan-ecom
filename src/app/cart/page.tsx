@@ -148,9 +148,11 @@ const CartPage: React.FC = () => {
                 </div>
               </div>
 
-              <button className="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-200 transition-all active:scale-[0.98]">
+              <Link href="/checkout">
+              <button className="mt-8 w-full cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-200 transition-all active:scale-[0.98]">
                 Proceed to Checkout
               </button>
+              </Link>
               
               <p className="text-center text-xs text-zinc-400 mt-4">
                 Secure SSL Encrypted Payment
