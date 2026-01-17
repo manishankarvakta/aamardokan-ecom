@@ -6,6 +6,7 @@ import CategoryCard from "@/components/home/CategoryCard";
 import ProductCard from "@/components/home/ProductCard";
 import { getCategories, getProductsByCategory, type Product } from "@/lib/products";
 import Deals from "@/components/home/Deals";
+import Promo from "@/components/home/Promo";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -63,6 +64,9 @@ export default function Home() {
 
       <div>
         <Deals />
+      </div>
+      <div>
+        <Promo />
       </div>
     </div>
   );
