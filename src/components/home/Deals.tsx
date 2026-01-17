@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // Import Swiper React components
-{  }
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -10,49 +9,47 @@ import 'swiper/css/pagination';
 
 // Import required modules
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { getAllProducts, type Product } from '@/lib/products';
+import ProductCard from './ProductCard';
 
 const Deals = () => {
-  const dealItems = [
-    { id: 1, title: "Summer Sale", discount: "50% Off", color: "#f87171" },
-    { id: 2, title: "Flash Deal", discount: "70% Off", color: "#60a5fa" },
-    { id: 3, title: "Bundle Offer", discount: "Buy 1 Get 1", color: "#fbbf24" },
-    { id: 4, title: "Member Exclusive", discount: "Extra 20%", color: "#34d399" },
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const all = await getAllProducts();
+      // Simulating "Deals" by picking random or first few products
+      setProducts(all.slice(0, 10)); 
+    })();
+  }, []);
+
+  if (products.length === 0) return null;
 
   return (
-    <section style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h2 style={{ marginBottom: '20px' }}>Hot Deals</h2>
+    <section className="px-4 lg:px-4 py-8 max-w-[1200px] mx-auto">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-zinc-900">Hot Deals</h2>
+        <a href="/products" className="text-sm font-semibold text-emerald-600 hover:text-emerald-700">View All</a>
+      </div>
       
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
-        spaceBetween={20}
-        slidesPerView={1}
+        spaceBetween={16}
+        slidesPerView={2}
         navigation
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 3000 }}
+        pagination={{ clickable: true, dynamicBullets: true }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         breakpoints={{
-          640: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
+          640: { slidesPerView: 2, spaceBetween: 16 },
+          768: { slidesPerView: 3, spaceBetween: 20 },
+          1024: { slidesPerView: 4, spaceBetween: 24 },
+          1280: { slidesPerView: 5, spaceBetween: 24 },
         }}
-        style={{ paddingBottom: '40px' }}
+        className="pb-12! px-1!"
       >
-        {dealItems.map((item) => (
-          <SwiperSlide key={item.id}>
-            <div style={{
-              backgroundColor: item.color,
-              height: '200px',
-              borderRadius: '12px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              fontSize: '1.5rem',
-              fontWeight: 'bold'
-            }}>
-              <p>{item.title}</p>
-              <span style={{ fontSize: '1rem' }}>{item.discount}</span>
-            </div>
+        {products.map((product) => (
+          <SwiperSlide key={product.id} className="pt-1 pb-1 pl-1">
+             <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
