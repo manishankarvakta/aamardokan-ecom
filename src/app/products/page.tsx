@@ -15,12 +15,13 @@ const searchParams = useSearchParams();
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const items = await getProductsByCategory(activeCategory);
-      if (!cancelled) setProducts(items);
+      const items = activeCategory ? await getProductsByCategory(activeCategory) : await getAllProducts();
+      if (cancelled) return;
+      setAllProducts(items);
+      setVisibleCount(PAGE_SIZE);
+      setLoading(false);
     })();
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [activeCategory]);
 
   const setCategory = (slug?: string) => {
@@ -31,31 +32,31 @@ const searchParams = useSearchParams();
   };
 
   const [allProducts, setAllProducts] = useState<ProductWithSlug[]>([]);
-  const [products, setProducts] = useState<ProductWithSlug[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const PAGE_SIZE = 20;
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const items = await getAllProducts();
-      if (cancelled) return;
-      setAllProducts(items);
-      setProducts(items.slice(0, PAGE_SIZE));
-      setLoading(false);
-    })();
-    return () => { cancelled = true; };
-  }, []);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [sortBy, setSortBy] = useState<'default' | 'price_asc' | 'price_desc'>('default');
 
-  const hasMore = products.length < allProducts.length;
+  const sortedAllProducts = useMemo(() => {
+    if (sortBy === 'default') return allProducts;
+    const copy = [...allProducts];
+    copy.sort((a, b) => (sortBy === 'price_asc' ? a.price - b.price : b.price - a.price));
+    return copy;
+  }, [allProducts, sortBy]);
+
+  const products = useMemo(() => sortedAllProducts.slice(0, visibleCount), [sortedAllProducts, visibleCount]);
+
+
+
+  const hasMore = visibleCount < sortedAllProducts.length;
 
   const loadMore = async () => {
     if (loadingMore || !hasMore) return;
     setLoadingMore(true);
     await new Promise((r) => setTimeout(r, 250));
-    const next = allProducts.slice(products.length, products.length + PAGE_SIZE);
-    setProducts((prev) => [...prev, ...next]);
+    setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, sortedAllProducts.length));
     setLoadingMore(false);
   };
 
@@ -67,6 +68,19 @@ const searchParams = useSearchParams();
           <div>
             <h2 className="text-xl font-bold text-zinc-900">All Products</h2>
             <p className="text-sm text-zinc-500">{products.length} items found</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <label htmlFor="sort" className="text-sm text-zinc-600">Sort By:</label>
+            <select
+              id="sort"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'default' | 'price_asc' | 'price_desc')}
+              className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-sm"
+            >
+              <option value="default">Default</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+            </select>
           </div>
         </div>
 
