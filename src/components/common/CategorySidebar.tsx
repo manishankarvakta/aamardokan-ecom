@@ -37,7 +37,6 @@ export default function CategorySidebar() {
                 active === c.slug ? "bg-white shadow-sm border border-zinc-200" : "hover:bg-zinc-100"
               }`}
             >
-              {c.icon}
               <span className="ml-2 text-zinc-900">{c.name}</span>
             </button>
           </li>

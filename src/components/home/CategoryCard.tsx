@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Category } from "@/lib/products";
 
 export default function CategoryCard({
@@ -12,18 +13,44 @@ export default function CategoryCard({
   return (
     <button
       onClick={onClick}
-      className={`group cursor-pointer flex flex-col items-center justify-center rounded-xl border p-4 transition ${
-        active ? "bg-white border-zinc-500 shadow-sm" : "bg-zinc-50 border-zinc-200 hover:bg-white"
-      }`}
+      // Fixed width for the entire card ensures the swiper calculates gaps correctly
+      className="group cursor-pointer flex flex-col items-center gap-3 bg-transparent border-none transition-all outline-none w-[120px]"
     >
+      {/* Fixed Circular Image Container */}
       <div
-        className={`flex h-12 w-12 items-center justify-center rounded-full text-2xl transition-transform ${
-          active ? "scale-105" : "group-hover:scale-105"
-        }`}      >
+        className={`relative h-[100px] w-[100px] shrink-0 overflow-hidden rounded-full border-2 transition-all duration-300 ${
+          active 
+            ? "border-emerald-600 ring-2 ring-emerald-600 ring-offset-2" 
+            : "border-transparent group-hover:border-zinc-200"
+        }`}
+      >
+        {category.image ? (
+          <Image
+            src={category.image}
+            alt={category.name}
+            fill
+            sizes="100px"
+            className={`object-cover transition-transform duration-500 ${
+              active ? "scale-110" : "group-hover:scale-110"
+            }`}
+          />
+        ) : (
+          <div className="w-full h-full bg-zinc-100 flex items-center justify-center text-zinc-400">
+            <span className="text-[10px]">No Image</span>
+          </div>
+        )}
       </div>
-      <span className="mt-2 text-sm font-medium text-zinc-900 text-center line-clamp-1">
-        {category.name}
-      </span>
+
+      {/* Category Name - Fixed height prevents text wrapping from breaking the row */}
+      <div className="h-10 flex items-start justify-center">
+        <span 
+          className={`text-xs sm:text-sm font-bold text-center line-clamp-2 transition-colors duration-200 ${
+            active ? "text-emerald-700" : "text-zinc-800 group-hover:text-emerald-600"
+          }`}
+        >
+          {category.name}
+        </span>
+      </div>
     </button>
   );
-}
+} 

@@ -1,19 +1,19 @@
-export type Category = { id: string; name: string; slug: string; icon: string; color: string };
+export type Category = { id: string; name: string; slug: string; image: string };
 export type Product = { id: string; name: string; price: number; image: string; category: string; slug: string , description: string };
 
 export const CATEGORIES: Category[] = [
-  { id: "c-fruits",       name: "Fruits",         slug: "fruits",         icon: "🍎", color: "#FF5E5E" },
-  { id: "c-vegetables",   name: "Vegetables",     slug: "vegetables",     icon: "🥦", color: "#4CAF50" },
-  { id: "c-dairy",        name: "Dairy",          slug: "dairy",          icon: "🧀", color: "#FFD93D" },
-  { id: "c-bakery",       name: "Bakery",         slug: "bakery",         icon: "🥐", color: "#A0522D" },
-  { id: "c-beverages",    name: "Beverages",      slug: "beverages",      icon: "🧃", color: "#4FC3F7" },
-  { id: "c-snacks",       name: "Snacks",         slug: "snacks",         icon: "🥨", color: "#FF9800" },
-  { id: "c-meat",         name: "Meat",           slug: "meat",           icon: "🥩", color: "#EF5350" },
-  { id: "c-seafood",      name: "Seafood",        slug: "seafood",        icon: "🐟", color: "#26C6DA" },
-  { id: "c-household",    name: "Household",      slug: "household",      icon: "🧹", color: "#9575CD" },
-  { id: "c-frozen",       name: "Frozen Foods",   slug: "frozen",         icon: "🧊", color: "#81D4FA" },
-  { id: "c-personal-care",name: "Personal Care",  slug: "personal-care",  icon: "🧴", color: "#F48FB1" },
-  { id: "c-baby",         name: "Baby Products",  slug: "baby",           icon: "🍼", color: "#FFCC80" },
+  { id: "c-fruits",       name: "Fruits",         slug: "fruits",         image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf" },
+  { id: "c-vegetables",   name: "Vegetables",     slug: "vegetables",     image: "https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=300&q=80" },
+  { id: "c-dairy",        name: "Dairy",          slug: "dairy",          image: "https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=300&q=80" },
+  { id: "c-bakery",       name: "Bakery",         slug: "bakery",         image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=300&q=80" },
+  { id: "c-beverages",    name: "Beverages",      slug: "beverages",      image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+  { id: "c-snacks",       name: "Snacks",         slug: "snacks",         image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60" },
+  { id: "c-meat",         name: "Meat",           slug: "meat",           image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=300&q=80" },
+  { id: "c-seafood",      name: "Seafood",        slug: "seafood",        image: "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62" },
+  { id: "c-household",    name: "Household",      slug: "household",      image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=300&q=80" },
+  { id: "c-frozen",       name: "Frozen Foods",   slug: "frozen",         image: "https://plus.unsplash.com/premium_photo-1713367036426-dddc7553a855" },
+  { id: "c-personal-care",name: "Personal Care",  slug: "personal-care",  image: "https://plus.unsplash.com/premium_photo-1679049601788-357a729a2e78" },
+  { id: "c-baby",         name: "Baby Products",  slug: "baby",           image: "https://plus.unsplash.com/premium_photo-1683134043877-dea4b88c9730" },
 ];
 
 const PRODUCTS: Product[] = [
