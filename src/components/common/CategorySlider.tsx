@@ -22,7 +22,7 @@ export default function CategorySlider({
   setCategory 
 }: CategorySliderProps) {
   return (
-    <section className="px-4 lg:px-4 py-8 max-w-[1200px] mx-auto">
+    <section className="px-4 lg:px-4 py-12 max-w-[1200px] mx-auto">
       <Swiper
         modules={[Navigation, Autoplay]}
         spaceBetween={20}
