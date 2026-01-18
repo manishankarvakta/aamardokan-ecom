@@ -40,7 +40,7 @@ export default function CategorySlider({
           1024: { slidesPerView: 4, spaceBetween: 24 },
           1280: { slidesPerView: 8, spaceBetween: 24 },
         }}
-        className="pb-12! px-1!" // Added padding so active rings aren't clipped
+        className="px-1!" // Added padding so active rings aren't clipped
       >
         {categories.map((cat) => (
           <SwiperSlide key={cat.slug} className="flex justify-center">

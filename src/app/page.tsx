@@ -39,11 +39,11 @@ export default function Home() {
     <div className="min-h-screen">
       <Banner />
 
-      <div className="!w-auto">
+      <div className="w-auto">
         <CategorySlider categories={categories} activeCategory={activeCategory} setCategory={setCategory} />
       </div>
 
-      <section className="px-4 lg:px-8 py-8">
+      <section className="px-4 lg:px-8 py-4">
         <h2 className="text-xl font-semibold mb-4">Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
           {products.slice(0, 10).map((p) => (
