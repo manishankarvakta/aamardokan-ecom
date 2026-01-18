@@ -3,7 +3,7 @@
 import { Heart, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
@@ -21,6 +21,9 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  useEffect(() => {
+    setQuery(searchParams.get("q") ?? "");
+  }, [searchParams]);
 
   const onSearch = (e: FormEvent) => {
     e.preventDefault();
