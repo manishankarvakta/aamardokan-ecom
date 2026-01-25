@@ -2,8 +2,11 @@ import NextAuth, { AuthOptions, DefaultUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 // Custom user type
+// Custom user type
 interface CustomUser extends DefaultUser {
   accessToken: string;
+  role?: string;
+  type?: string;
 }
 
 export const authOptions: AuthOptions = {
@@ -11,34 +14,45 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
+        phone: { label: "Phone", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials): Promise<CustomUser | null> {
-        if (!credentials?.email || !credentials.password) return null;
+        if (!credentials?.phone || !credentials.password) return null;
 
         // Use NEXT_PUBLIC_API_URL_POS from env
         const API_URL = process.env.NEXT_PUBLIC_API_URL_POS;
+        // Use AAMAR_ID for Authorization token
+        const AUTH_TOKEN = process.env.AAMAR_ID;
 
-        const res = await fetch(`${API_URL}/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-          }),
-        });
+        try {
+          const res = await fetch(`${API_URL}/ecom/customer/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${AUTH_TOKEN}`
+            },
+            body: JSON.stringify({
+              phone: credentials.phone,
+              password: credentials.password,
+            }),
+          });
 
-        const data = await res.json();
+          const data = await res.json();
 
-        if (!res.ok || !data.user || !data.token) return null;
+          if (!res.ok || !data.user || !data.token) return null;
 
-        return {
-          id: data.user.id,
-          name: data.user.name,
-          email: data.user.email,
-          accessToken: data.token,
-        };
+          return {
+            id: data.user.id,
+            name: data.user.name,
+            email: data.user.email,
+            accessToken: data.token,
+            type: data.user.type || "regular", // Assuming backend returns 'type': 'regular' | 'admin'
+          };
+        } catch (error) {
+          console.error("Login Error:", error);
+          return null;
+        }
       },
     }),
   ],
@@ -47,11 +61,16 @@ export const authOptions: AuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.accessToken = (user as CustomUser).accessToken;
+      if (user) {
+        token.accessToken = (user as CustomUser).accessToken;
+        token.type = (user as CustomUser).type;
+      }
       return token;
     },
     async session({ session, token }) {
       (session as any).accessToken = (token as any).accessToken;
+      // Pass the user type to the session
+      (session.user as any).type = (token as any).type;
       return session;
     },
   },

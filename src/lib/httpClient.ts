@@ -11,8 +11,14 @@ export const httpClient = axios.create({
 
 // Add a request interceptor to include the access token in every request
 httpClient.interceptors.request.use(async (config) => {
-  // In a real app, you might get the token from next-auth session
-  // But since this is used in both client and server, we need to handle it carefully.
-  // For now, let's just define the structure.
+  // Add the access token from environment variables
+  // We check mostly for NEXT_PUBLIC_AAMAR_ID for client-side usage, 
+  // but also check AAMAR_ID in case it's used server-side or configured otherwise.
+  const token = process.env.NEXT_PUBLIC_AAMAR_ID || process.env.AAMAR_ID;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
   return config;
 });

@@ -24,7 +24,7 @@ export default function RegisterPage() {
       // Registration API call with static fields
       const result = await authService.register({
         name,
-        username: name.split(" ")[0], // username from email
+        username: name.split(" ")[0].toLowerCase(), // username from email
         phone,
         password,
         type: "regular",

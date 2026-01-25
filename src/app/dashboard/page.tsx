@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Package,
   Truck,
@@ -14,8 +15,34 @@ import {
 import { useSession } from "next-auth/react";
 
 const Dashboard = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const userName = session?.user?.name || "User";
+
+  useEffect(() => {
+    if (status === "loading") return;
+
+    if (status === "unauthenticated") {
+      router.push("/login");
+      return;
+    }
+
+    // Check user type for redirection
+    // We cast session.user to any because we added 'type' in route.ts but Typescript might not know it yet in the client without type augmentation
+    const user = session?.user as any;
+    if (user?.type === "regular") {
+      router.push("/dashboard/customer");
+    } else if (user?.type === "admin") {
+      router.push("/dashboard/admin"); // Or wherever admin goes
+    }
+    // If no type or other type, assume customer or stay here? 
+    // If we stay here, we render this page, which looks like a customer dashboard summary.
+    // For now, let's redirect regular to customer dashboard as requested.
+  }, [session, status, router]);
+
+  if (status === "loading") {
+    return <div className="p-8">Loading...</div>;
+  }
 
   return (
     <div className="space-y-8 p-4 md:p-8 font-sans bg-gray-100">

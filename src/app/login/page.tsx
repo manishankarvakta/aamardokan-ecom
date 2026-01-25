@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [remember, setRemember] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,14 +21,16 @@ export default function LoginPage() {
     try {
       const result = await signIn("credentials", {
         redirect: false,
-        email,
+        phone,
         password,
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        setError("Invalid phone or password");
       } else {
+        // Redirection logic is handled by the middleware or dashboard page
         router.push("/dashboard");
+        router.refresh();
       }
     } catch (err) {
       setError("An unexpected error occurred");
@@ -52,13 +54,13 @@ export default function LoginPage() {
 
               <form onSubmit={onSubmit} className="mt-6 space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-zinc-700">Email</label>
+                  <label htmlFor="phone" className="block text-sm font-medium text-zinc-700">Phone Number</label>
                   <input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
+                    id="phone"
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="01700000000"
                     className="mt-1 w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-600"
                     required
                   />
