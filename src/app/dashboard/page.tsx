@@ -11,14 +11,19 @@ import {
   BoxIcon
 } from "lucide-react";
 
+import { useSession } from "next-auth/react";
+
 const Dashboard = () => {
+  const { data: session } = useSession();
+  const userName = session?.user?.name || "User";
+
   return (
     <div className="space-y-8 p-4 md:p-8 font-sans bg-gray-100">
 
       {/* Greeting */}
       <div>
         <h1 className="text-2xl font-bold">
-          Good Afternoon, <span className="text-emerald-600">Zaheen Rakib!</span>
+          Good Afternoon, <span className="text-emerald-600">{userName}!</span>
         </h1>
         <p className="mt-1 text-gray-400">
           Here's what's happening with your account today.
@@ -51,11 +56,11 @@ const Dashboard = () => {
             </div>
             <div>
               <h3 className="text-xl font-bold text-white tracking-wide">
-              My Orders
-            </h3>
-            <p className="mt-1 text-sm text-zinc-200">
-              All of your orders in one place
-            </p>
+                My Orders
+              </h3>
+              <p className="mt-1 text-sm text-zinc-200">
+                All of your orders in one place
+              </p>
             </div>
           </div>
         </Link>
@@ -64,7 +69,7 @@ const Dashboard = () => {
 
         {/* Wishlist Card */}
         <Link href="/dashboard/wishlist"
-         className="group relative h-52 overflow-hidden rounded-2xl border border-purple-100 dark:border-purple-800/50 hover:shadow-md transition-shadow">
+          className="group relative h-52 overflow-hidden rounded-2xl border border-purple-100 dark:border-purple-800/50 hover:shadow-md transition-shadow">
           <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
             style={{
@@ -84,10 +89,10 @@ const Dashboard = () => {
         </Link>
 
         {/* Coupon Card */}
-        <Link 
-        href="/dashboard/coupons"
-         className="group relative h-52 overflow-hidden rounded-2xl border border-purple-100 dark:border-purple-800/50 hover:shadow-md transition-shadow">
-           <div
+        <Link
+          href="/dashboard/coupons"
+          className="group relative h-52 overflow-hidden rounded-2xl border border-purple-100 dark:border-purple-800/50 hover:shadow-md transition-shadow">
+          <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
             style={{
               backgroundImage:

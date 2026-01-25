@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
 import Link from "next/link";
 import { toast } from "sonner";
+import { orderService } from "@/services/orderService";
+import { useRouter } from "next/navigation";
 
 const CheckoutPage: React.FC = () => {
     const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -29,7 +31,10 @@ const CheckoutPage: React.FC = () => {
     });
     const [payment, setPayment] = useState<"cod" | "card">("cod");
 
-    const placeOrder = () => {
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+
+    const placeOrder = async () => {
         if (!address.name || !address.phone || !address.line1 || !address.city || !address.zip) {
             toast.error("Please fill in shipping address");
             return;
@@ -38,7 +43,29 @@ const CheckoutPage: React.FC = () => {
             toast.error("Your cart is empty");
             return;
         }
-        toast.success("Order placed");
+
+        setLoading(true);
+        try {
+            const orderData = {
+                items: cartItems,
+                total: totals.finalTotal,
+                customer: address,
+                paymentMethod: payment,
+            };
+            const result = await orderService.createOrder(orderData);
+            if (result.success) {
+                toast.success("Order placed successfully!");
+                // Clear cart (in a real app you'd dispatch a clearCart action)
+                router.push("/dashboard/my-orders");
+            } else {
+                toast.error(result.message || "Failed to place order");
+            }
+        } catch (error) {
+            console.error("Checkout error:", error);
+            toast.error("Something went wrong during checkout");
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (cartItems.length === 0) {

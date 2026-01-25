@@ -9,15 +9,35 @@ import { toast } from 'sonner';
 import Image from 'next/image';
 import ProductCard from '@/components/home/ProductCard';
 
+import { wishlistService } from '@/services/wishlistService';
+import { useEffect, useState } from 'react';
+
 const WishList = () => {
   const dispatch = useDispatch();
-  
-  // Mocking data - replace with your useSelector
-  const items = [
-    { id: "p-detergent", name: "Laundry Detergent",  slug: "laundry-detergent",  price: 9.49, image: "https://images.unsplash.com/photo-1624372635282-b324bcdd4907", category: "household", description: "Powerful laundry detergent for clean and fresh clothes." },
-  { id: "p-dishwash",  name: "Dishwashing Liquid", slug: "dishwashing-liquid", price: 3.79, image: "https://plus.unsplash.com/premium_photo-1664372899205-7cccbe1ad0b0", category: "household", description: "Effective dishwashing liquid for sparkling clean dishes." },
-  { id: "p-tissue",    name: "Paper Towels",       slug: "paper-towels",       price: 2.99, image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f", category: "household", description: "Soft and absorbent paper towels for everyday use." },
-  ];
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const data = await wishlistService.getWishlist();
+        setItems(data);
+      } catch (error) {
+        console.error("Failed to fetch wishlist:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWishlist();
+  }, []);
+
+  const handleClear = async () => {
+    // Logic to clear all items if desired, for now let's just mock it
+    setItems([]);
+    toast.success("Wishlist cleared");
+  }
+
+  if (loading) return <div className="text-center py-20">Loading wishlist...</div>;
 
   const handleMoveToCart = (item: any) => {
     dispatch(addToCart(item));
@@ -45,7 +65,7 @@ const WishList = () => {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-12 py-8 ">
-        
+
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 border-b border-zinc-100 pb-8 gap-6">
           <div>
@@ -64,7 +84,7 @@ const WishList = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
           {items.map((item) => (
-              <ProductCard key={item.slug} product={item} />
+            <ProductCard key={item.slug} product={item} />
           ))}
         </div>
       </div>

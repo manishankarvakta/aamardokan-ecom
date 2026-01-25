@@ -5,35 +5,28 @@ import Link from 'next/link';
 import { Package, ChevronRight, Clock, CheckCircle2, Truck, Box, CheckCircle, Star } from 'lucide-react';
 import Image from 'next/image';
 
-// Mock Data - In a real app, you'd fetch this from your database/Redux
-const orders = [
-  {
-    id: "ORD-99281",
-    date: "Oct 24, 2023",
-    status: "Delivered",
-    total: 1250.00,
-    itemsCount: 3,
-    image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: "ORD-88273",
-    date: "Oct 28, 2023",
-    status: "Shipped",
-    total: 450.50,
-    itemsCount: 1,
-    image: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: "ORD-77210",
-    date: "Nov 02, 2023",
-    status: "Processing",
-    total: 890.00,
-    itemsCount: 2,
-    image: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=200&auto=format&fit=crop",
-  }
-];
+import { orderService } from '@/services/orderService';
+import { useEffect, useState } from 'react';
 
 const MyOrders = () => {
+  const [orders, setOrders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const data = await orderService.getMyOrders();
+        setOrders(data);
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  if (loading) return <div className="text-center py-20">Loading orders...</div>;
   const getStatusStyle = (status: string) => {
     switch (status) {
       case 'Delivered': return 'bg-emerald-50 text-emerald-600 border-emerald-100';
@@ -54,8 +47,8 @@ const MyOrders = () => {
 
   return (
     <div className="min-h-screen bg-zinc-50/50 pb-20">
-      
-      
+
+
       <div className="max-w-4xl mx-auto px-4 py-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -78,7 +71,7 @@ const MyOrders = () => {
                   {/* Product Thumbnail Group */}
                   <div className="relative h-20 w-20 shrink-0">
                     <Image
-                    fill
+                      fill
                       src={order.image}
                       alt="Order thumb"
                       className="h-full w-full object-cover rounded-2xl border border-zinc-100"
@@ -120,7 +113,7 @@ const MyOrders = () => {
                     <ChevronRight size={20} />
                   </div>
                 </div>
-                </div>
+              </div>
             </Link>
           ))}
         </div>

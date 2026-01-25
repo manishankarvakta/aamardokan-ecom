@@ -1,21 +1,30 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { getCategories, getProductsByCategory, getAllProducts, type ProductWithSlug } from "@/lib/products";
+import { productService } from "@/services/productService";
+import { type ProductWithSlug, type Category } from "@/lib/products";
 import ProductCard from "@/components/home/ProductCard";
 import CategorySlider from "@/components/common/CategorySlider";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ProductsPage() {
-const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const activeCategory = searchParams.get("category") ?? undefined;
-  const categories = useMemo(() => getCategories(), []);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const cats = await productService.getCategories();
+      setCategories(cats);
+    })();
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const items = activeCategory ? await getProductsByCategory(activeCategory) : await getAllProducts();
+      setLoading(true);
+      const items = await productService.getAllProducts(activeCategory);
       if (cancelled) return;
       setAllProducts(items);
       setVisibleCount(PAGE_SIZE);

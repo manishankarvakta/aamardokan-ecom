@@ -3,7 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Banner from "@/components/home/Banner";
 import ProductCard from "@/components/home/ProductCard";
-import { getCategories, getProductsByCategory, searchProducts, type Product } from "@/lib/products";
+import { productService } from "@/services/productService";
+import { type Product, type Category } from "@/lib/products";
 import Deals from "@/components/home/Deals";
 import Promo from "@/components/home/Promo";
 import CategorySlider from "@/components/common/CategorySlider";
@@ -14,16 +15,21 @@ export default function Home() {
   const router = useRouter();
   const activeCategory = searchParams.get("category") ?? undefined;
 
-  const categories = useMemo(() => getCategories(), []);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const query = (searchParams.get("q") ?? "").trim();
 
   useEffect(() => {
+    (async () => {
+      const cats = await productService.getCategories();
+      setCategories(cats);
+    })();
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
     (async () => {
-      const items = query
-        ? await searchProducts(query, activeCategory ?? undefined)
-        : await getProductsByCategory(activeCategory ?? undefined);
+      const items = await productService.getAllProducts(activeCategory, query);
       if (!cancelled) setProducts(items);
     })();
     return () => {
@@ -56,7 +62,7 @@ export default function Home() {
       </section>
 
       <div>
-       {!query && !activeCategory && <Deals />}
+        {!query && !activeCategory && <Deals />}
       </div>
       <div>
         {!query && !activeCategory && <Promo />}
