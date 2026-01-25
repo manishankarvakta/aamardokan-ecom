@@ -1,7 +1,7 @@
 import NextAuth, { AuthOptions, DefaultUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
-// Custom user type
 // Custom user type
 interface CustomUser extends DefaultUser {
   accessToken: string;
@@ -11,6 +11,10 @@ interface CustomUser extends DefaultUser {
 
 export const authOptions: AuthOptions = {
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {

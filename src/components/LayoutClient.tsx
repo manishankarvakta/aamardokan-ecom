@@ -8,6 +8,7 @@ import StoreProvider from "@/components/StoreProvider";
 import { Toaster } from "sonner";
 import { usePathname } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
+import AuthSync from "@/components/AuthSync";
 
 type Props = {
   children: React.ReactNode;
@@ -37,6 +38,7 @@ export default function ClientLayout({ children }: Props) {
   return (
     <SessionProvider>
       <StoreProvider>
+        <AuthSync />
         <Toaster position="bottom-right" richColors />
         <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <div className="pt-16 flex min-h-screen bg-zinc-100">

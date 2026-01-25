@@ -107,10 +107,15 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                {/* <div className="grid grid-cols-2 gap-3">
-                  <button type="button" className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm">Google</button>
-                  <button type="button" className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm">Facebook</button>
-                </div> */}
+                <div className="grid grid-cols-1 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                    className="flex justify-center items-center gap-2 rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium hover:bg-zinc-50 transition-colors"
+                  >
+                    Google
+                  </button>
+                </div>
 
                 <p className="text-center text-sm text-zinc-600">
                   Don&apos;t have an account? {" "}
