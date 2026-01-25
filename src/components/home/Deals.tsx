@@ -9,7 +9,8 @@ import 'swiper/css/pagination';
 
 // Import required modules
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { getAllProducts, type Product } from '@/lib/products';
+import { productService } from "@/services/productService";
+import { type Product } from '@/lib/products';
 import ProductCard from './ProductCard';
 
 const Deals = () => {
@@ -17,9 +18,9 @@ const Deals = () => {
 
   useEffect(() => {
     (async () => {
-      const all = await getAllProducts();
+      const all = await productService.getAllProducts();
       // Simulating "Deals" by picking random or first few products
-      setProducts(all.slice(0, 10)); 
+      setProducts(all.slice(0, 10));
     })();
   }, []);
 
@@ -31,7 +32,7 @@ const Deals = () => {
         <h2 className="text-2xl font-bold text-zinc-900">Hot Deals</h2>
         <a href="/products" className="text-sm font-semibold text-emerald-600 hover:text-emerald-700">View All</a>
       </div>
-      
+
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={16}
@@ -49,7 +50,7 @@ const Deals = () => {
       >
         {products.map((product) => (
           <SwiperSlide key={product.id} className="pt-1 pb-1 pl-1">
-             <ProductCard product={product} />
+            <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

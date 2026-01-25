@@ -9,7 +9,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Grid } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { getProductBySlug, getAllProducts, type Product } from "@/lib/products";
+import { productService } from "@/services/productService";
+import { type ProductWithSlug, type Product } from "@/lib/products";
 import ProductCard from "@/components/home/ProductCard";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/store/features/cartSlice";
@@ -27,13 +28,16 @@ export default function ProductDetailsPage() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const p = await getProductBySlug(slug);
+      const p = await productService.getProductBySlug(slug);
       if (cancelled) return;
       setProduct(p ?? null);
-      const all = await getAllProducts();
-      if (cancelled) return;
-      const rel = p ? all.filter(item => item.category === p.category && item.slug !== p.slug).slice(0, 20) : [];
-      setRelated(rel);
+      if (p) {
+        // Fetch only related if product found
+        const all = await productService.getAllProducts();
+        if (cancelled) return;
+        const rel = all.filter(item => item.category === p.category && item.slug !== p.slug).slice(0, 20);
+        setRelated(rel);
+      }
     })();
     return () => { cancelled = true; };
   }, [slug]);

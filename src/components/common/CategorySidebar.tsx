@@ -1,15 +1,24 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { getCategories } from "@/lib/products";
+import { productService } from "@/services/productService";
+import { type Category } from "@/lib/products";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function CategorySidebar() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const active = searchParams.get("category") ?? undefined;
-  const categories = getCategories();
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const cats = await productService.getCategories();
+      setCategories(cats);
+    })();
+  }, []);
 
   const setCategory = (slug?: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -35,8 +44,8 @@ export default function CategorySidebar() {
             <button
               onClick={() => setCategory(c.slug)}
               className={`group w-full flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 ${active === c.slug
-                  ? "bg-emerald-50 border border-emerald-100 shadow-sm"
-                  : "bg-transparent border border-transparent hover:bg-zinc-50"
+                ? "bg-emerald-50 border border-emerald-100 shadow-sm"
+                : "bg-transparent border border-transparent hover:bg-zinc-50"
                 }`}
             >
               {/* Image Container */}
@@ -52,8 +61,8 @@ export default function CategorySidebar() {
 
               {/* Category Name */}
               <span className={`text-sm font-medium transition-colors ${active === c.slug
-                  ? "text-emerald-700"
-                  : "text-zinc-600 group-hover:text-zinc-900"
+                ? "text-emerald-700"
+                : "text-zinc-600 group-hover:text-zinc-900"
                 }`}>
                 {c.name}
               </span>
