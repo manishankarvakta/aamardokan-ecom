@@ -29,7 +29,7 @@ export default function LoginPage() {
         setError("Invalid phone or password");
       } else {
         // Redirection logic is handled by the middleware or dashboard page
-        router.push("/dashboard");
+        router.push("/dashboard/customer");
         router.refresh();
       }
     } catch (err) {
@@ -91,14 +91,12 @@ export default function LoginPage() {
                   <Link href="#" className="text-sm font-medium text-emerald-700 hover:underline">Forgot password?</Link>
                 </div>
 
-                <Link href="/dashboard">
-                  <button
-                    type="submit"
-                    className="w-full rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
-                  >
-                    Sign In
-                  </button>
-                </Link>
+                <button
+                  type="submit"
+                  className="w-full rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+                >
+                  Sign In
+                </button>
 
                 <div className="relative my-2">
                   <div className="absolute inset-0 flex items-center">

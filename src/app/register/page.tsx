@@ -27,6 +27,7 @@ export default function RegisterPage() {
         username: name.split(" ")[0].toLowerCase(), // username from email
         phone,
         password,
+        aamrId: "123456789",
         type: "regular",
         membership: "gold",
         status: "active",
@@ -37,6 +38,7 @@ export default function RegisterPage() {
         redirect: false,
         phone,
         password,
+        aamrId: "123456789",
       });
 
       if (loginResult?.error) {

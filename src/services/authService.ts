@@ -8,6 +8,7 @@ export interface RegisterData {
     type: string;
     membership: string;
     status: string;
+    aamrId?: string;
 }
 
 export const authService = {

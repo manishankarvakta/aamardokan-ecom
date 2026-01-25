@@ -1,14 +1,13 @@
 "use client";
 
-import { Heart, ShoppingCart, User } from "lucide-react";
+import { Heart, ShoppingCart, User, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
-
-
 
 type NavbarProps = {
   isSidebarOpen: boolean;
@@ -16,14 +15,22 @@ type NavbarProps = {
 }
 
 export default function Navbar({ isSidebarOpen, toggleSidebar }: NavbarProps) {
+  const { data: session, status } = useSession();
   const cartItems = useSelector((state: RootState) => state.cart.items);
-const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
+
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "");
   }, [searchParams]);
+
+  useEffect(() => {
+    if (session && (session as any).accessToken) {
+      localStorage.setItem("accessToken", (session as any).accessToken);
+    }
+  }, [session]);
 
   const onSearch = (e: FormEvent) => {
     e.preventDefault();
@@ -32,6 +39,17 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
     else params.delete("q");
     router.push(`/?${params.toString()}`);
   };
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/login" });
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+  };
+
+  type NavbarProps = {
+    isSidebarOpen: boolean;
+    toggleSidebar: () => void;
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border border-zinc-200 shadow-sm">
@@ -49,8 +67,8 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
         <Link href="/" className="flex items-center gap-2 font-semibold text-zinc-900">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded bg-emerald-600 text-white">A</span>
           <span className="text-xl font-bold tracking-tight text-emerald-700">
-              Aamar <span className="text-emerald-600">Dokan</span>
-            </span>
+            Aamar <span className="text-emerald-600">Dokan</span>
+          </span>
         </Link>
 
         <form onSubmit={onSearch} className="flex-1 max-w-xl mx-auto">
@@ -70,7 +88,7 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
         </form>
 
         <div className="flex items-center gap-3">
-          
+
           {/* Wishlist Button */}
           <Link href="/dashboard/wishlist" aria-label="Wishlist" className="cursor-pointer rounded-md border border-zinc-300 bg-white p-2 hover:bg-zinc-50 transition-colors">
             <Heart size={20} className="text-emerald-600" fill="currentColor" />
@@ -83,10 +101,30 @@ const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
             </span>
           </Link>
 
-          {/* Login Button */}
-          <Link href="/login" className="flex items-center gap-2 rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium hover:bg-zinc-50 transition-colors">
-            <User size={18} className="text-emerald-600" />
-          </Link>
+          {/* Login / User Button */}
+          {status === "authenticated" && session?.user ? (
+            <div className="flex items-center gap-2">
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2 rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium hover:bg-zinc-50 transition-colors group"
+              >
+                <User size={18} className="text-emerald-600" />
+                <span className="max-w-[100px] truncate hidden sm:inline">{session.user.name?.split(" ")[0]}</span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 rounded-md border border-red-200 bg-white px-2 py-2 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+                title="Logout"
+              >
+                <LogOut size={18} />
+              </button>
+            </div>
+          ) : (
+            <Link href="/login" className="flex items-center gap-2 rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium hover:bg-zinc-50 transition-colors">
+              <User size={18} className="text-emerald-600" />
+              <span className="hidden sm:inline">Login</span>
+            </Link>
+          )}
         </div>
       </div>
     </header>
