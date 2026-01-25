@@ -1,4 +1,18 @@
-export type Category = { id: string; name: string; slug: string; image: string };
+export type Category = {
+  id: string;
+  name: string;
+  slug: string;
+  image: string;
+  _id?: string;
+  code?: string;
+  mcId?: number;
+  group?: string;
+  photo?: string;
+  description?: string;
+  aamarId?: string;
+  status?: string;
+  mc?: { _id: string; name: string; };
+};
 export type Product = { id: string; name: string; price: number; image: string; category: string; slug: string, description: string };
 
 export interface PaginatedResult<T> {

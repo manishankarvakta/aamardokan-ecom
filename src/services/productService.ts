@@ -7,7 +7,7 @@ export const productService = {
         if (category) params.category = category;
         if (query) params.q = query;
 
-        const response = await httpClient.get("/ecom/all/0/10", { params });
+        const response = await httpClient.get("/ecom/all/1/10", { params });
         return response.data;
     },
 
@@ -27,6 +27,21 @@ export const productService = {
 
     getCategories: async (): Promise<Category[]> => {
         const response = await httpClient.get("/ecom/categories");
+        // Map _id to id if necessary, or just return as is if the component handles it
+        // The current Category type requires id, name, slug, image. 
+        // The API returns _id, name, code, etc. 
+        // We might need to map it if the API doesn't return id/slug/image exactly.
+        // For now, returning data directly.
+        return response.data;
+    },
+
+    getCategoriesByGroup: async (group: string): Promise<Category[]> => {
+        const response = await httpClient.get(`/ecom/category/group/${group}`);
+        return response.data;
+    },
+
+    getCategoriesByMasterCategory: async (mcId: string): Promise<Category[]> => {
+        const response = await httpClient.get(`/ecom/category/master/${mcId}`);
         return response.data;
     },
 };

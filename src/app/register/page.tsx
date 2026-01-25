@@ -46,7 +46,7 @@ export default function RegisterPage() {
       }
 
       // Redirect to dashboard or home
-      router.push("/dashboard");
+      router.push("/dashboard/customer");
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Please try again.");

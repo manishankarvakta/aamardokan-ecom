@@ -21,8 +21,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextTopLoader 
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning={true}>
+        <NextTopLoader
           color="#10b981"
           showSpinner={false}
           shadow="0 0 10px #10b981,0 0 5px #10b981"
